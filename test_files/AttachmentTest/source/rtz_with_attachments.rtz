@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1">
+    <routeInfo routeName="JPNGO_STLAW_1_SCHEDULE_RTZ">
+    </routeInfo>
+    <waypoints>
+        <waypoint id="1" name="JPNGO NE">
+            <position lat="34.25855000" lon="137.17881667"/>
+			<extensions manufacturer="Chersoft" version="0.1">
+				<extension>
+					<property>rtz://myAttachment.txt</property>
+					<inAtt attach="rtz://mySecondAttachment.txt"/>
+				</extension>
+			</extensions>
+        </waypoint>
+        <waypoint id="2" name="SE1" radius="2.00">
+            <position lat="22.2433308" lon="-158.68618600"/>
+            <leg portsideXTD="0.50" starboardXTD="1.00"/>
+        </waypoint>
+        <waypoint id="3" name="SE2" radius="0.45">
+            <position lat="-45.10568333" lon="150.38398333"/>
+            <leg portsideXTD="0.15" starboardXTD="0.30"/>
+        </waypoint>
+        <waypoint id="4" name="SE3" radius="1.65">
+            <position lat="-36.93133333" lon="20.64783333"/>
+            <leg portsideXTD="3.00" starboardXTD="4.50" geometryType="Orthodrome"/>
+        </waypoint>
+        <waypoint id="5" name="SW" radius="0.85">
+            <position lat="-6.95285000" lon="-32.85430000"/>
+            <leg portsideXTD="0.40" starboardXTD="0.20" geometryType="Orthodrome"/>
+        </waypoint>
+        <waypoint id="6" name="ST LAW NW">
+            <position lat="44.55386667" lon="-56.39596667"/>
+            <leg portsideXTD="0.40" starboardXTD="0.40" geometryType="Orthodrome"/>
+        </waypoint>
+    </waypoints>
+    <schedules>
+        <schedule id="0" name="Monitored Schedule">
+            <manual>
+                <scheduleElement waypointId="1" etd="2029-05-15T15:00:00Z"/>
+                <scheduleElement waypointId="2" speed="10.000"/>
+                <scheduleElement waypointId="3" speed="10.500"/>
+                <scheduleElement waypointId="4" speed="11.000"/>
+                <scheduleElement waypointId="5" speed="11.500"/>
+                <scheduleElement waypointId="6" speed="12.000"/>
+            </manual>
+            <calculated>
+		<scheduleElement waypointId="1" etd="2029-05-15T15:00:00Z"/>
+                <scheduleElement waypointId="2" eta="2029-05-30T01:05:34Z" etd="2029-05-30T01:05:34Z" speed="10.000"/>
+                <scheduleElement waypointId="3" eta="2029-06-18T12:39:58Z" etd="2029-06-18T12:39:58Z" speed="10.500"/>
+                <scheduleElement waypointId="4" eta="2029-07-08T04:39:17Z" etd="2029-07-08T04:39:17Z" speed="11.000"/>
+                <scheduleElement waypointId="5" eta="2029-07-20T14:16:24Z" etd="2029-07-20T14:16:24Z" speed="11.500"/>
+                <scheduleElement waypointId="6" eta="2029-08-01T04:04:31Z" speed="12.000"/>
+            </calculated>
+	</schedule>
+    </schedules>
+	<extensions manufacturer="Chersoft" version="0.1">
+		<extension>
+			<property>rtz://subfolder/myThirdAttachment.txt</property>
+			<inAtt attach="rtz://myMissingAttachment.txt"/>
+		</extension>
+	</extensions>
+</route>

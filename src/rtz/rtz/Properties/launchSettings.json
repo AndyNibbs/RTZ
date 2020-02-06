@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "rtz": {
+      "commandName": "Project",
+      "commandLineArgs": "-unzip \"\\\\cleopatra\\chersoft\\nautical\\cirm\\rtztestfiles\\rtz_files\\attachmenttest\\rtz_with_attachments.rtzp\""
+    }
+  }
+}
