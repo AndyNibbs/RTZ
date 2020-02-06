@@ -22,3 +22,5 @@ Assumptions:
 
 RTZ is a .net core 3.1 console app so it should run on Linux/MacOS as well as Windows. 
 
+
+Andy Nibbs
