@@ -2,7 +2,7 @@
   "profiles": {
     "rtz": {
       "commandName": "Project",
-      "commandLineArgs": "-unzip \"\\\\cleopatra\\chersoft\\nautical\\cirm\\rtztestfiles\\rtz_files\\attachmenttest\\rtz_with_attachments.rtzp\""
+      "commandLineArgs": "-check \"\\\\cleopatra\\chersoft\\Nautical\\CIRM\\RTZTestFiles\\rtz_files\" e:\\testing\\multireport.txt"
     }
   }
 }
