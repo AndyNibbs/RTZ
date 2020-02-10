@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/andynibbs/andynibbs/_apis/build/status/AndyNibbs.RTZ?branchName=master)](https://dev.azure.com/andynibbs/andynibbs/_build/latest?definitionId=2&branchName=master)
+
 # RTZ
 Utilities and knowledge related to RTZ route exchange format (part of IEC61174:2015, ECDIS)
 
