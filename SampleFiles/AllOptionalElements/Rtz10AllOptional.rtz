@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1">
+    <routeInfo 
+		routeName="RTZ 1.1 Test File Containing All Mandatory Elements and Attributes"
+		routeAuthor="Andy Nibbs" 
+		routeStatus="Test route. Not for navigation!" 
+		validityPeriodStart="2014-01-03T03:15:00Z"
+        validityPeriodStop="2014-01-06T10:15:00Z"
+		vesselName="HMS Liverpool"
+		vesselMMSI="234610000" 
+		vesselIMO="4907062"
+		vesselVoyage="99A"
+		vesselDisplacement="4820"
+		vesselCargo="') DROP TABLE Cargo;" 
+		vesselGM="2.12"
+		optimizationMethod="Simulated Annealing"
+		vesselMaxRoll="10.0"
+		vesselMaxWave="7.8" 
+		vesselSpeedMax="30.0" 
+		vesselServiceMin="12.0" 
+		vesselServiceMax="28.0" 
+		routeChangesHistory="Sample RTZ route files by Mikhail Andrianov\nAdapted, rearranged and targeted at tests for standard by Andy Nibbs"
+	/>
+    <waypoints>
+		<defaultWaypoint />
+        <waypoint id="11"> <position lat="34.25855000"  lon="137.17881667"/>  </waypoint>
+        <waypoint id="2"> <position lat="22.2433308"   lon="-158.68618600"/> </waypoint>
+        <waypoint id="43"> <position lat="-45.10568333" lon="150.38398333"/>  </waypoint>
+        <waypoint id="4"> <position lat="-36.93133333" lon="20.64783333"/>   </waypoint>
+        <waypoint id="0"> <position lat="-6.95285000"  lon="-32.85430000"/>  </waypoint>
+        <waypoint id="5"> <position lat="44.55386667"  lon="-56.39596667"/>  </waypoint>
+      </waypoints>
+</route>
+
+
+

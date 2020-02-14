@@ -2,7 +2,7 @@
   "profiles": {
     "rtz": {
       "commandName": "Project",
-      "commandLineArgs": "-check \"c:\\github\\rtz\\samplefiles\\mandatoryelementsrtzschema10\\rtz10mandatory.rtz\" "
+      "commandLineArgs": "-check \"c:\\github\\rtz\\samplefiles\\alloptionalelements\\rtz10alloptional.rtz\" "
     }
   }
 }

@@ -22,9 +22,9 @@ namespace rtz
 
             RootChecks();
             XsdCheck();
-
             CheckWaypointIdsAreUnique();
             WarnOfDuplicateConsecutivePositions();
+            RouteInfoChecks();
 
             Errors = new ReadOnlyCollection<string>(_errors);
             Warnings = new ReadOnlyCollection<string>(_warnings);
@@ -206,6 +206,110 @@ namespace rtz
             {
                 if (MiscFunctions.Similar(positions[n], positions[n + 1], 0.00009))
                     _warnings.Add($"WP index {n} position is very similar to position of WP index {n+1}. This is not forbidden but may affect schedule calculations");
+            }
+        }
+
+        private void RouteInfoChecks()
+        {
+            var routeInfoElement = _doc.Root.Element(_namespace + "routeInfo");
+
+            string routeName = (string)routeInfoElement.Attribute("routeName");
+            if (string.IsNullOrWhiteSpace(routeName))
+                _errors.Add("Route name string is whitespace!");
+
+            WarnAboutLength(routeInfoElement, "routeName");
+            WarnAboutLength(routeInfoElement, "routeAuthor");
+            WarnAboutLength(routeInfoElement, "routeStatus");
+            WarnAboutLength(routeInfoElement, "vesselName", 32);
+            WarnAboutLength(routeInfoElement, "vesselVoyage", 16);
+   
+            DateTimeOffset? validityPeriodStart = routeInfoElement.OptionalAttributeTime("validityPeriodStart");
+            DateTimeOffset? validityPeriodStop  = routeInfoElement.OptionalAttributeTime("validityPeriodStop");
+            if (validityPeriodStart.HasValue && validityPeriodStop.HasValue && validityPeriodStart.Value >= validityPeriodStop.Value)
+            {
+                _errors.Add("validityPeriodStart >= validityPeriodStop");
+            }
+
+            string mmsi = routeInfoElement.OptionalAttributeString("vesselMMSI");
+            if (!ValidMMSI(mmsi))
+                _warnings.Add($"vesselMMSI ({mmsi}) does not look like an MMSI ");
+
+            string imo = routeInfoElement.OptionalAttributeString("vesselIMO");
+            if (!ValidIMO(imo))
+                _warnings.Add($"vesselIMO ({imo}) does not look like an IMO number");
+
+
+            double? vesselGM = routeInfoElement.OptionalAttributeDouble("vesselGM");
+            if (vesselGM.HasValue && vesselGM.Value < 0.15)
+                _warnings.Add($"vesselGM is below that allowed by UK Department for Transport");
+
+
+            double? vesselSpeedMax = routeInfoElement.OptionalAttributeDouble("vesselSpeedMax");
+            double? vesselServiceMin = routeInfoElement.OptionalAttributeDouble("vesselServiceMin");
+            double? vesselServiceMax = routeInfoElement.OptionalAttributeDouble("vesselServiceMax");
+            if (vesselServiceMin.HasValue && vesselServiceMax.HasValue && vesselServiceMax.Value < vesselServiceMin.Value)
+            {
+                _errors.Add("vesselServiceMax < vesselServiceMin");
+            }
+            if (vesselSpeedMax.HasValue && vesselServiceMax.HasValue && vesselSpeedMax.Value < vesselServiceMax)
+            {
+                _errors.Add("vesselSpeedMax < vesselServiceMax");
+            }
+            if (vesselSpeedMax.HasValue && vesselServiceMax.HasValue && vesselSpeedMax.Value < vesselServiceMin)
+            {
+                _errors.Add("vesselSpeedMax < vesselServiceMin");
+            }
+        }
+
+        private bool ValidMMSI(string mmsi)
+        {
+            if (string.IsNullOrWhiteSpace(mmsi))
+                return false;
+
+            if (mmsi.Length < 9) 
+                return false; // to short
+
+            string first = mmsi.Substring(0, 1);
+            int nFirst = int.Parse(first);
+            if (nFirst < 2 || nFirst > 7) 
+                return false; // not a ship
+
+            return true;
+        }
+
+        private bool ValidIMO(string imo)
+        {
+            if (string.IsNullOrWhiteSpace(imo))
+                return false;
+
+            string numeric;
+
+            if (imo.StartsWith("IMO"))
+            {
+                if (imo.Length != 10)
+                    return false;
+
+                numeric = imo.Substring(3, 7);
+            }
+            else
+            {
+                if (imo.Length != 7)
+                    return false;
+
+                numeric = imo;
+            }
+
+            return int.TryParse(numeric, out int dummy);            
+        }
+
+        private void WarnAboutLength(XElement element, string attributeName, int reasonableLength = 128)
+        {
+            string s = element.OptionalAttributeString(attributeName);
+            if (string.IsNullOrEmpty(s))
+                return;
+            if (s.Length > reasonableLength)
+            {
+                _warnings.Add($"Route name is >{reasonableLength} chars which is unreasonably long");
             }
         }
     }
