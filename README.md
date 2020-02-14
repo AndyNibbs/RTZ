@@ -30,7 +30,14 @@ RTZ -check <rtz or rtzp filename|folder containing multiple files> [destination 
 
 e.g. RTZ -check c:\myRtzFiles c:\myCheckReport.txt
 
-There's a fairly lengthy TODO list:
+### Non-exhaustive, best efforts list of checks...
+- Standard schema check
+- Check size is below 400kb limit
+- Check that waypoint ids are unique
+- Checking existence and values of version attribute prior to schema check
+- Warn of very short route legs
+
+### There's a fairly lengthy TODO list:
 
 - Support checking RTZ when wrapped in RTZP.
 - Build in RTZ 1.1 XSD.

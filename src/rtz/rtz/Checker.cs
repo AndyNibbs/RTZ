@@ -23,9 +23,14 @@ namespace rtz
             RootChecks();
             XsdCheck();
 
+            CheckWaypointIdsAreUnique();
+            WarnOfDuplicateConsecutivePositions();
+
             Errors = new ReadOnlyCollection<string>(_errors);
             Warnings = new ReadOnlyCollection<string>(_warnings);
         }
+
+        private XNamespace _namespace;
 
         private void XsdCheck()
         {
@@ -34,11 +39,13 @@ namespace rtz
             if (version.Equals("1.0", StringComparison.InvariantCultureIgnoreCase))
             {
                 XsdCheck(Properties.Resources.RTZ_Schema_version_1_0);
+                _namespace = XNamespace.Get("http://www.cirm.org/RTZ/1/0");
             }
             else if (version.Equals("1.1", StringComparison.InvariantCultureIgnoreCase))
             {
                 XsdCheck(Properties.Resources.RTZ_Schema_version_1_0);
                 _warnings.Add("Version of file is 1.1 but checked with 1.0 schema (TODO)");
+                _namespace = XNamespace.Get("http://www.cirm.org/RTZ/1/1");
             }
             else
             {
@@ -176,6 +183,30 @@ namespace rtz
             }
 
             return "Success. No errors or warnings.";
+        }
+
+        private void CheckWaypointIdsAreUnique()
+        {
+            var ids = _doc.Root.Element(_namespace + "waypoints").Elements(_namespace + "waypoint").Select(wp => wp.Attribute("id").Value);
+            var dupes = ids.GroupBy(id => id).Where(g => g.Count() > 1).Select(g => g.Key);
+            dupes.ForEach(dupe => _errors.Add($"Waypoint id {dupe} appears more than one once in waypoints element"));
+        }
+
+        private void WarnOfDuplicateConsecutivePositions()
+        {
+            // Check for very short route legs 0.00009 of a degree is 
+            // one NM is 1 minute of lat == 1852m
+            // So one deg is 111120‬m
+            // 0.00009 deg is ~10m 
+            // Testing two position's closeness by comparing lat and long in this way is rough and ready as change in latitude makes longitude coords "closer"
+
+            (double lat, double lon)[] positions = MiscFunctions.ParsePositions(_doc, _namespace);
+
+            for (int n = 0; n < positions.Length - 1; ++n)
+            {
+                if (MiscFunctions.Similar(positions[n], positions[n + 1], 0.00009))
+                    _warnings.Add($"WP index {n} position is very similar to position of WP index {n+1}. This is not forbidden but may affect schedule calculations");
+            }
         }
     }
 }
