@@ -2,7 +2,7 @@
   "profiles": {
     "rtz": {
       "commandName": "Project",
-      "commandLineArgs": "-check \"\\\\cleopatra\\chersoft\\Nautical\\CIRM\\RTZTestFiles\\rtz_files\" e:\\testing\\multireport.txt"
+      "commandLineArgs": "-check \"c:\\github\\rtz\\samplefiles\\mandatoryelementsrtzschema10\\rtz10mandatory.rtz\" "
     }
   }
 }
