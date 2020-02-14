@@ -26,6 +26,8 @@ namespace rtz
             WarnOfDuplicateConsecutivePositions();
             RouteInfoChecks();
 
+          //  NonStandardExtensionWarnings();
+
             Errors = new ReadOnlyCollection<string>(_errors);
             Warnings = new ReadOnlyCollection<string>(_warnings);
         }

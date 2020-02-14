@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1">
+<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns:stm="http://stmvalidation.eu/STM/1/0/0" >
     <routeInfo 
 		routeName="RTZ 1.1 Test File Containing All Mandatory Elements and Attributes"
 		routeAuthor="Andy Nibbs" 
@@ -19,17 +19,126 @@
 		vesselSpeedMax="30.0" 
 		vesselServiceMin="12.0" 
 		vesselServiceMax="28.0" 
-		routeChangesHistory="Sample RTZ route files by Mikhail Andrianov\nAdapted, rearranged and targeted at tests for standard by Andy Nibbs"
-	/>
+		routeChangesHistory="Sample RTZ route files by Mikhail Andrianov\nAdapted, rearranged and targeted at tests for standard by Andy Nibbs">
+       <extensions>
+            <extension xsi:type="stm:RouteInfoExtension" name="routeInfoEx" manufacturer="STM" version="1.0.0" routeStatusEnum="1" routeVersion="750E6022-278C-4CAB-BC5A-ABCDD7C9F23F" startSeaPassage="LOC:WP1" endSeaPassage="TRAFFIC_AREA:WP6" arrPort="CAMTR">
+                <stm:routeChanges>
+                    <stm:historyItem author="AJN" reason="creation" dateTime="2019-04-30T18:21:27Z"/>
+                    <stm:historyItem author="AJN" reason="correction" dateTime="2019-04-30T18:27:51Z"/>
+                    <stm:historyItem author="AJN" reason="correction" dateTime="2019-04-30T18:27:51Z"/>
+                </stm:routeChanges>
+            </extension>
+        </extensions>		
+		<nonstandardExtension/>
+	</routeInfo>
     <waypoints>
-		<defaultWaypoint />
-        <waypoint id="11"> <position lat="34.25855000"  lon="137.17881667"/>  </waypoint>
-        <waypoint id="2"> <position lat="22.2433308"   lon="-158.68618600"/> </waypoint>
-        <waypoint id="43"> <position lat="-45.10568333" lon="150.38398333"/>  </waypoint>
-        <waypoint id="4"> <position lat="-36.93133333" lon="20.64783333"/>   </waypoint>
-        <waypoint id="0"> <position lat="-6.95285000"  lon="-32.85430000"/>  </waypoint>
-        <waypoint id="5"> <position lat="44.55386667"  lon="-56.39596667"/>  </waypoint>
+		<defaultWaypoint radius="0.6">
+			<leg starboardXTD="0.2" 
+				 portsideXTD="0.1" 
+				 safetyContour="30.0"
+				 safetyDepth="35.0"
+				 geometryType="orthodrome"
+				 planSpeedMin="6"
+				 planSpeedMax="18"
+				 draughtForward="6.27"
+				 draughtAft="6.4"
+				 staticUKC="8.0"
+				 dynamicUKC="8.8"
+				 masthead="19"
+				 legReport="Noon reporting required"
+				 legInfo="Default leg info"
+				 legNote1="Default ETA/ETD notes"
+				 legNote2="Default local remarks"
+				 />
+			<extensions>
+                <extension name="defaultWPExt" manufacturer="CIRMSamples" version="1.0.0" value="ProprietaryValue"/>
+            </extensions>
+			<nonstandardExtension/>
+		</defaultWaypoint>
+        <waypoint id="11" name="WP1" revision="3" radius="0.7">
+			 <position lat="34.25855000"  lon="137.17881667"/>  
+			 <leg legInfo="It IS permitted by standard to have leg element here" />
+			 <extensions>
+                <extension name="WPExt" manufacturer="CIRMSamples" version="1.0.0" value="ProprietaryValueForThisWP"/>
+            </extensions>
+		</waypoint>
+        <waypoint id="2" name="WP1">
+			<position lat="22.2433308" lon="-158.68618600"/>
+			<leg starboardXTD="1" 
+				 portsideXTD="1.1" 
+				 safetyContour="100.0"
+				 safetyDepth="90.0"
+				 geometryType="loxodrome"
+				 planSpeedMin="15"
+				 planSpeedMax="18"
+				 draughtForward="6.3"
+				 draughtAft="6.42"
+				 staticUKC="8.2"
+				 dynamicUKC="9.0"
+				 masthead="19.1"
+				 legReport="Hourly reporting"
+				 legInfo="Specific leg info"
+				 legNote1="Specifics about ETA/ETD"
+				 legNote2="Specific local remarks" />
+				 <nonstandardExtension/>
+			</waypoint>
+        <waypoint id="43">
+			<position lat="-45.10568333" lon="150.38398333"/>
+			<leg geometryType="loxodrome" />
+		</waypoint>
+        <waypoint id="4"> 
+			<position lat="-36.93133333" lon="20.64783333"/>   
+			<leg geometryType="loxodrome" />
+		</waypoint>
+        <waypoint id="0"> 
+			<position lat="-6.95285000"  lon="-32.85430000"/>  
+		</waypoint>
+        <waypoint id="5" name="END"> 
+			<position lat="44.55386667"  lon="-56.39596667"/>  
+			<leg geometryType="loxodrome" />
+		</waypoint>
+		<extensions>
+			<extension name="WPCollectionExt" manufacturer="CIRMSamples" version="1.0.0" value="RelatedToTheCollectionOfWaypoints"/>
+        </extensions>
+		<nonstandardExtension/>
       </waypoints>
+	  
+		<schedules>
+			<schedule id="42" name="Non-optimised schedule">
+				<manual>
+					<scheduleElement> this one is a beast with many optionals
+
+				</manual>
+				<calculated>
+			
+			
+				</calculated>
+				<extensions><extension name="ScheduleExtension" manufacturer="CIRMSamples" version="1.1.1"/></extensions>
+			</schedule>
+			<schedule id="42" name="Weather optimised 20200214">
+				<manual>
+
+				</manual>
+				<calculated>
+			
+			
+				</calculated>
+			</schedule>
+			<extensions><extension name="SchedulesExtension" manufacturer="CIRMSamples" version="1.1.1"/></extensions>
+		</schedules>
+	  	  
+		<extensions>
+			<extension name="ActivePath" manufacturer="CIRMSamples" version="1.0.0">
+				<path xmlns="">
+					<wp_ids>
+						<wp_id value="1"/>
+						<wp_id value="2"/>
+						<wp_id value="3"/>
+					</wp_ids>
+				</path>
+			</extension>
+		</extensions>
+		<nonstandardExtension/>
 </route>
 
 

@@ -1,22 +1,38 @@
 # Test route file conforming to the minimum mandatory elements of schema version 1.0
 
-[AllMandatory.rtz](./AllMandatory.rtz)
+[Rtz10AllOptional.rtz](./Rtz10AllOptional.rtz)
+
+[Picture](./AllOptionElements.png)
 
 # Notes
 
 This is for task T7 for sub-group working on ECDIS WG development of the RTZ1.1 standard
 
-T6: Create a test route file for Clause 6.9.8 (f)
+T7: Create a test route file for Clause 6.9.8 (f)
 
 Text from developing standard reads:
 
 6.9.8 Route Exchange
 f)	Import a route conforming to schema version 1.1 containing all optional elements. Confirm by observation that the file imports without error and that all parts of the schema identified in the user manual as supported have correct values.
 
+# TODO: 
 
+Many of the examples in the Working document have capital letters starting element names e.g \<Waypoints> rather than \<waypoints> in compliance with schema. The document is all over the place here.
 
+Some examples is the document contain typo "portsizeXTD" rather than "portsideXTD"
 
+Document contains use of "," for decimal point symbol - I assume XML uses "." - inconsistency. What is CIRM approach to that?
 
-TODO: 
+Schema 1.0 at least does not check for non-standard extensions
 
-Checks:
+stm project seemed to have put extensions in route info which is not allowed but is in keeping with the norm so probably should be added to the list of things that can be extended
+
+# Checks to do
+
+Check for non-standard elements [WhatCanContainWhat.txt](../../../WhatCanContainWhat.txt)
+
+- default waypoint checks - should not contain things that don't fit with being a default
+- waypoint checks
+- leg checks (warn against having a leg on the first WP)
+- geometryType check for permitted values
+- schedules stuff
