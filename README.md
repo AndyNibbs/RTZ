@@ -34,6 +34,7 @@ e.g. RTZ -check c:\myRtzFiles c:\myCheckReport.txt
 
 ### Non-exhaustive, best efforts list of checks...
 - Standard schema check
+- Check that filename matches routeName attribute
 - Check size is below 400kb limit
 - Check that waypoint ids are unique
 - Checking existence and values of version attribute prior to schema check

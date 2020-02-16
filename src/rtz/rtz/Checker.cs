@@ -216,8 +216,11 @@ namespace rtz
             var routeInfoElement = _doc.Root.Element(_namespace + "routeInfo");
 
             string routeName = (string)routeInfoElement.Attribute("routeName");
-            if (string.IsNullOrWhiteSpace(routeName))
-                _errors.Add("Route name string is whitespace!");
+            string fileName = Path.GetFileNameWithoutExtension(Filename);
+            if (!string.Equals(routeName, fileName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                _errors.Add("routeName shall equal the filename");
+            }
 
             WarnAboutLength(routeInfoElement, "routeName");
             WarnAboutLength(routeInfoElement, "routeAuthor");
@@ -266,7 +269,7 @@ namespace rtz
         private bool ValidMMSI(string mmsi)
         {
             if (string.IsNullOrWhiteSpace(mmsi))
-                return false;
+                return true;
 
             if (mmsi.Length < 9) 
                 return false; // to short
@@ -282,7 +285,7 @@ namespace rtz
         private bool ValidIMO(string imo)
         {
             if (string.IsNullOrWhiteSpace(imo))
-                return false;
+                return true;
 
             string numeric;
 

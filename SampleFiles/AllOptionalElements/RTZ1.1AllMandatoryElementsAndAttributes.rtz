@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns:stm="http://stmvalidation.eu/STM/1/0/0" >
     <routeInfo 
-		routeName="RTZ 1.1 Test File Containing All Mandatory Elements and Attributes"
+		routeName="RTZ1.1AllMandatoryElementsAndAttributes"
 		routeAuthor="Andy Nibbs" 
 		routeStatus="Test route. Not for navigation!" 
 		validityPeriodStart="2014-01-03T03:15:00Z"
