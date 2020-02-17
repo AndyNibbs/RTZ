@@ -2,7 +2,7 @@
   "profiles": {
     "rtz": {
       "commandName": "Project",
-      "commandLineArgs": "-check \"c:\\github\\rtz\\samplefiles\\alloptionalelements\\rtz10alloptional.rtz\" "
+      "commandLineArgs": "-check c:\\github\\rtz\\samplefiles\\defaultwaypoint\\defaultwaypoint.rtz "
     }
   }
 }

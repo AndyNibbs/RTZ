@@ -45,8 +45,11 @@ e.g. RTZ -check c:\myRtzFiles c:\myCheckReport.txt
 - Check vesselGM is sensible
 - Check that vesselSpeedMax is >= vesselServiceMax, vesselSpeedMax is >= vesselServiceMin, service max >= service min
 - Various length checks on routeInfo attributes (a very long route name would probably work badly on many systems, a field intended for route number should be fairly short, these are warnings)
-
-
+- Check for attributes of defaultWaypoint that do not make sense (e.g. id)
+- Check that defaultWaypoint does not have a position
+- Check that each waypoint has a position with lat and lon
+- Leg checks (including warning against having a leg on the first WP)
+- geometryType check for permitted values
 
 ### There's a fairly lengthy TODO list:
 

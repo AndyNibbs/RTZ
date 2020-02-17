@@ -23,10 +23,15 @@ namespace rtz
             RootChecks();
             XsdCheck();
             CheckWaypointIdsAreUnique();
+            CheckAllLegs();
+            CheckAllWaypointsHaveBasics();
+            DefaultWaypointChecks();
             WarnOfDuplicateConsecutivePositions();
             RouteInfoChecks();
 
-          //  NonStandardExtensionWarnings();
+            CheckSchedule();
+
+            //NonStandardExtensionWarnings();
 
             Errors = new ReadOnlyCollection<string>(_errors);
             Warnings = new ReadOnlyCollection<string>(_warnings);
@@ -45,9 +50,10 @@ namespace rtz
             }
             else if (version.Equals("1.1", StringComparison.InvariantCultureIgnoreCase))
             {
-                XsdCheck(Properties.Resources.RTZ_Schema_version_1_0);
-                _warnings.Add("Version of file is 1.1 but checked with 1.0 schema (TODO)");
+                XsdCheck(Properties.Resources.RTZ_Schema_version_1_1);
                 _namespace = XNamespace.Get("http://www.cirm.org/RTZ/1/1");
+
+                _warnings.Add("Version of file is 1.1 but not checked with OFFICIAL SCHEMA");
             }
             else
             {
@@ -99,6 +105,11 @@ namespace rtz
 
         private void AttributeContentsCheck(XElement el, string attName, params string[] acceptable)
         {
+            if (el is null)
+            {
+                return;
+            }
+
             if (el.Attribute(attName) is object)
             {
                 string value = el.Attribute(attName).Value.Trim();
@@ -107,10 +118,42 @@ namespace rtz
             }
         }
 
+        private void AcceptableAttributesCheck(XElement el, params string[] acceptableAttributeNames)
+        {
+            var names = el.Attributes().Select(att => att.Name);
+
+            foreach(var name in names)
+            {
+                if (!acceptableAttributeNames.Contains(name.LocalName))
+                {
+                    _warnings.Add($"Non-standard attribute name ({name.LocalName}) found in {el.Name.LocalName} element");
+                }
+            }
+        }
+
+        private void AcceptableElementsCheck(XElement el, params string[] acceptableNames)
+        {
+            var names = el.Elements().Select(att => att.Name);
+
+            foreach (var name in names)
+            {
+                if (!acceptableNames.Contains(name.LocalName))
+                {
+                    _warnings.Add($"Non-standard element ({name.LocalName}) found in {el.Name.LocalName} element");
+                }
+            }
+        }
+
         private void AttributeExistenceCheck(XElement el, string attName)
         {
             if (el.Attribute(attName) is null)
                 _errors.Add($"No {attName} attribute on {el.Name}");
+        }
+
+        private void ElementExistenceCheck(XElement el, string elementName)
+        {
+            if (el.Element(_namespace + elementName) is null)
+                _errors.Add($"No {elementName} element on {el.Name.LocalName}");
         }
 
         private void ElementNameCheck(XElement element, string expected)
@@ -124,6 +167,32 @@ namespace rtz
             if (!element.Name.LocalName.Equals(expected, StringComparison.InvariantCulture))
             {
                 _errors.Add($"Element name {element.Name} should have been {expected}");
+            }
+        }
+
+        private void AttributeAbsenceCheck(XElement el, string attName, string errorMessage = "")
+        {
+            if (string.IsNullOrWhiteSpace(errorMessage))
+            {
+                errorMessage = $"The presence of attribute {attName} on element {el.Name.LocalName} does not make sense";
+            }
+
+            if (el.Attribute(attName) is object)
+            {
+                _errors.Add(errorMessage);
+            }
+        }
+        
+        private void ElementAbsenceCheck(XElement el, string elementName, string errorMessage = "")
+        {
+            if (string.IsNullOrWhiteSpace(errorMessage))
+            {
+                errorMessage = $"The presence of element {elementName} on element {el.Name.LocalName} does not make sense";
+            }
+
+            if (el.Element(_namespace + elementName) is object)
+            {
+                _errors.Add(errorMessage);
             }
         }
         
@@ -141,21 +210,17 @@ namespace rtz
             var report = new StringBuilder();
 
             report.AppendLine($"RTZ check report for {Filename}");
-            report.AppendLine();
             report.AppendLine($"Checked around {DateTime.UtcNow.ToString("G")}");
-            report.AppendLine();
 
 
             if (HasErrors)
             {
                 Errors.ForEach(e => report.AppendLine(e));
-                report.AppendLine();
             }
 
             if (HasWarnings)
             {
                 Warnings.ForEach(w => report.AppendLine(w));
-                report.AppendLine();
             }
 
             report.AppendLine(SuccessDescription());
@@ -192,6 +257,26 @@ namespace rtz
             var ids = _doc.Root.Element(_namespace + "waypoints").Elements(_namespace + "waypoint").Select(wp => wp.Attribute("id").Value);
             var dupes = ids.GroupBy(id => id).Where(g => g.Count() > 1).Select(g => g.Key);
             dupes.ForEach(dupe => _errors.Add($"Waypoint id {dupe} appears more than one once in waypoints element"));
+        }
+
+        private void CheckAllWaypointsHaveBasics()
+        {
+            var wps = _doc.Root.Element(_namespace + "waypoints").Elements(_namespace + "waypoint");
+
+            if (wps.First().Element(_namespace + "leg") is object)
+            {
+                _warnings.Add("First waypoint has a leg element but this is meaningless as it would define a route leg prior to the first waypoint");
+            }
+
+            foreach(var wp in wps)
+            {
+                AttributeExistenceCheck(wp, "id");
+                ElementExistenceCheck(wp, "position");
+                var position = wp.Element(_namespace + "position");
+                AttributeExistenceCheck(position, "lat");
+                AttributeExistenceCheck(position, "lon");
+                AcceptableAttributesCheck(position, "lat", "lon");
+            }
         }
 
         private void WarnOfDuplicateConsecutivePositions()
@@ -317,5 +402,80 @@ namespace rtz
                 _warnings.Add($"Route name is >{reasonableLength} chars which is unreasonably long");
             }
         }
+
+        private void CheckSchedule()
+        {
+            var waypointIds = _doc.Root.Element(_namespace + "waypoints").Elements(_namespace + "waypoint").Select(wp => (int)wp.Attribute("id"));
+
+            XElement schedulesNode = _doc.Root.Element(_namespace + "schedules");
+
+            if (schedulesNode is null)
+            {
+                return; // the best schedule is no schedule
+            }
+
+            var schedules = schedulesNode.Elements("schedule");
+
+            
+
+            // All schedules should contain the same WP ids in the same order as in
+            // the waypoints section 
+        }
+
+        // The only meaningful scheduleElement attributes ont he first leg are:
+        /*  waypointID
+         *  etd
+         *  windSpeed
+         *  windDirection
+         *  Note
+         *  
+         *  All of the other ones refer to the "leg" which is N-1 to N
+         *  so "previous" in line with the daftness of the standard
+         *  it is at least consistent
+         *  
+         */
+
+
+        
+        // This is general around ensuring that default waypoint does not have information on it that
+        // only makes sense for an actual waypoint
+        private void DefaultWaypointChecks() 
+        {
+            var defaultWaypoint = _doc.Root.Element(_namespace + "waypoints").Element(_namespace + "defaultWaypoint");
+
+            if (defaultWaypoint is object)
+            {
+                ElementAbsenceCheck(defaultWaypoint, "position");
+                AttributeAbsenceCheck(defaultWaypoint, "id");
+                AttributeAbsenceCheck(defaultWaypoint, "revision");
+                AttributeAbsenceCheck(defaultWaypoint, "name");
+                CheckLeg(defaultWaypoint.Element(_namespace + "leg"));
+            }
+        }
+
+        private void CheckLeg(XElement leg)
+        {
+            if (leg == null)
+                return;
+
+            AttributeContentsCheck(leg, "geometryType", "Orthodrome", "Loxodrome");
+
+            AcceptableAttributesCheck(leg, "starboardXTD", "portsideXTD", "safetyContour", "safetyDepth", "geometryType", "planSpeedMin", "planSpeedMax",
+                                           "draughtForward", "draughtAft", "staticUKC", "dynamicUKC", "masthead", "legReport", "legInfo", "legNote1", "legNote2");
+
+        }
+
+        private void CheckAllLegs()
+        {
+            var legs = _doc.Root.Element(_namespace + "waypoints")
+                                .Elements(_namespace + "waypoint")
+                                .Select(el => el.Element(_namespace + "leg"))
+                                .Where(leg => leg is object);
+
+            legs.ForEach(leg => CheckLeg(leg));
+        }
     }
+
+
 }
+

@@ -27,12 +27,12 @@ Schema 1.0 at least does not check for non-standard extensions
 
 stm project seemed to have put extensions in route info which is not allowed but is in keeping with the norm so probably should be added to the list of things that can be extended
 
+in line with general vagueness around element/attribute case there is doubt over waypointId vs. waypointID for schedule elements
+
 # Checks to do
 
-Check for non-standard elements [WhatCanContainWhat.txt](../../../WhatCanContainWhat.txt)
+- Check for non-standard elements [WhatCanContainWhat.txt](../../../WhatCanContainWhat.txt)
 
-- default waypoint checks - should not contain things that don't fit with being a default
-- waypoint checks
-- leg checks (warn against having a leg on the first WP)
-- geometryType check for permitted values
 - schedules stuff
+
+- check that schedules move forward (would need to have RL and GC calcs in s/w to actually check schedules)
