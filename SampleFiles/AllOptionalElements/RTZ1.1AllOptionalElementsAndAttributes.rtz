@@ -29,7 +29,6 @@
         </stm:routeChanges>
       </extension>
     </extensions>
-    <nonstandardExtension/>
   </routeInfo>
   <waypoints>
     <defaultWaypoint radius="0.6">
@@ -37,7 +36,7 @@
 				 portsideXTD="0.1"
 				 safetyContour="30.0"
 				 safetyDepth="35.0"
-				 geometryType="orthodrome"
+				 geometryType="Orthodrome"
 				 planSpeedMin="6"
 				 planSpeedMax="18"
 				 draughtForward="6.27"
@@ -53,7 +52,6 @@
       <extensions>
         <extension name="defaultWPExt" manufacturer="CIRMSamples" version="1.0.0" value="ProprietaryValue"/>
       </extensions>
-      <nonstandardExtension/>
     </defaultWaypoint>
     <waypoint id="11" name="WP1" revision="3" radius="0.7">
       <position lat="34.25855000"  lon="137.17881667"/>
@@ -68,7 +66,7 @@
 				 portsideXTD="1.1"
 				 safetyContour="100.0"
 				 safetyDepth="90.0"
-				 geometryType="loxodrome"
+				 geometryType="Loxodrome"
 				 planSpeedMin="15"
 				 planSpeedMax="18"
 				 draughtForward="6.3"
@@ -80,27 +78,25 @@
 				 legInfo="Specific leg info"
 				 legNote1="Specifics about ETA/ETD"
 				 legNote2="Specific local remarks" />
-      <nonstandardExtension/>
     </waypoint>
     <waypoint id="43">
       <position lat="-45.10568333" lon="150.38398333"/>
-      <leg geometryType="loxodrome" />
+      <leg geometryType="Loxodrome" />
     </waypoint>
     <waypoint id="4">
       <position lat="-36.93133333" lon="20.64783333"/>
-      <leg geometryType="loxodrome" />
+      <leg geometryType="Loxodrome" />
     </waypoint>
     <waypoint id="0">
       <position lat="-6.95285000"  lon="-32.85430000"/>
     </waypoint>
     <waypoint id="5" name="END">
       <position lat="44.55386667"  lon="-56.39596667"/>
-      <leg geometryType="loxodrome" />
+      <leg geometryType="Loxodrome" />
     </waypoint>
     <extensions>
       <extension name="WPCollectionExt" manufacturer="CIRMSamples" version="1.0.0" value="RelatedToTheCollectionOfWaypoints"/>
     </extensions>
-    <nonstandardExtension/>
   </waypoints>
   <schedules>
     <schedule id="42" name="Non-optimised schedule">
@@ -143,7 +139,6 @@
       </path>
     </extension>
   </extensions>
-  <nonstandardExtension/>
 </route>
 
 

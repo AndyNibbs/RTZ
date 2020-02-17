@@ -31,7 +31,7 @@ namespace rtz
 
             CheckSchedule();
 
-            //NonStandardExtensionWarnings();
+            NonStandardExtensionWarnings();
 
             Errors = new ReadOnlyCollection<string>(_errors);
             Warnings = new ReadOnlyCollection<string>(_warnings);
@@ -133,6 +133,11 @@ namespace rtz
 
         private void AcceptableElementsCheck(XElement el, params string[] acceptableNames)
         {
+            if (el == null)
+            {
+                return;
+            }
+
             var names = el.Elements().Select(att => att.Name);
 
             foreach (var name in names)
@@ -474,8 +479,84 @@ namespace rtz
 
             legs.ForEach(leg => CheckLeg(leg));
         }
+
+        private void NonStandardExtensionWarnings()
+        {
+            // The code below is trying to check...
+
+            //  The only thing that routeInfo can contain is extensions
+            //
+            //  waypoints can contain
+            //  	defaultWaypoint
+            //  	waypoint
+            //  	extensions
+            //  	
+            //  defaultWaypoint can contain	
+            //  	leg
+            //  	extensions
+            //  	
+            //  waypoint can contain
+            //  	position
+            //  	leg
+            //  	extensions
+            //  	
+            //  extensions can contain extension elements
+            //  
+            //  schedules can contain
+            //  	schedule
+            //  	extensions
+            //  
+            //  schedule can contain
+            //  	manual
+            //  		scheduleElement
+            //  			extensions
+            //  		extensions
+            //  	calculated
+            //  		scheduleElement
+            //  			extensions
+            //  		extensions
+            //  	extensions
+            
+            var route = _doc.Root;
+            AcceptableElementsCheck(route, "routeInfo", "waypoints", "schedules", "extensions");
+
+            var routeInfo = route.Element(_namespace + "routeInfo");
+            AcceptableElementsCheck(routeInfo, "extensions");
+            
+            var waypoints = route.Element(_namespace + "waypoints");
+            AcceptableElementsCheck(waypoints, "defaultWaypoint", "waypoint", "extensions");
+
+            var defaultWaypoint = waypoints.Element(_namespace + "defaultWaypoint");
+            AcceptableElementsCheck(defaultWaypoint, "leg", "extensions");
+
+            var allWaypoints = waypoints.Elements(_namespace + "waypoint");
+            foreach (var wp in allWaypoints)
+                AcceptableElementsCheck(wp, "position", "leg", "extensions");
+
+            var schedules = route.Element(_namespace + "schedules");
+            AcceptableElementsCheck(schedules, "schedule", "extensions");
+
+            // Extensions should only contain <extension>s
+            var extensions = route.Descendants(_namespace + "extensions");
+            foreach(var el in extensions)
+                AcceptableElementsCheck(el, "extension");
+
+            var allSchedules = schedules.Elements(_namespace + "schedule");
+            foreach (var sch in allSchedules)
+                AcceptableElementsCheck(sch, "manual", "calculated", "extensions");
+
+            var allManuals = schedules.Elements(_namespace + "manual");
+            foreach (var man in allManuals)
+                AcceptableElementsCheck(man, "scheduleElement", "extensions");
+
+            var allCalc = schedules.Elements(_namespace + "calculated");
+            foreach (var calc in allCalc)
+                AcceptableElementsCheck(calc, "scheduleElement", "extensions");
+
+            var allSchEl = schedules.Descendants(_namespace + "scheduleElement");
+            foreach (var se in allSchEl)
+                AcceptableElementsCheck(se, "extensions");
+        }
     }
-
-
 }
 

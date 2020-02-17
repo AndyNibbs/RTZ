@@ -15,7 +15,7 @@ Text from developing standard reads:
 6.9.8 Route Exchange
 f)	Import a route conforming to schema version 1.1 containing all optional elements. Confirm by observation that the file imports without error and that all parts of the schema identified in the user manual as supported have correct values.
 
-# TODO: 
+# TO DISCUSS: 
 
 Many of the examples in the Working document have capital letters starting element names e.g \<Waypoints> rather than \<waypoints> in compliance with schema. The document is all over the place here.
 
@@ -31,8 +31,5 @@ in line with general vagueness around element/attribute case there is doubt over
 
 # Checks to do
 
-- Check for non-standard elements [WhatCanContainWhat.txt](../../../WhatCanContainWhat.txt)
-
 - schedules stuff
-
 - check that schedules move forward (would need to have RL and GC calcs in s/w to actually check schedules)

@@ -50,18 +50,13 @@ e.g. RTZ -check c:\myRtzFiles c:\myCheckReport.txt
 - Check that each waypoint has a position with lat and lon
 - Leg checks (including warning against having a leg on the first WP)
 - geometryType check for permitted values
+- Checks to detect non-standard extensions (implementors should only extension using the standard extensions elements which can be put basically EVERYWHERE!)
 
 ### There's a fairly lengthy TODO list:
 
 - Support checking RTZ when wrapped in RTZP.
 - Build in RTZ 1.1 XSD.
-- etc etc..
-
-
-
-
-
-
+- Better checks related to schedules
 
 ## General
 
