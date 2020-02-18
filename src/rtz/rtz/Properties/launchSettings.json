@@ -2,7 +2,7 @@
   "profiles": {
     "rtz": {
       "commandName": "Project",
-      "commandLineArgs": "-check c:\\github\\rtz\\samplefiles\\alloptionalelements\\rtz1.1alloptionalelementsandattributes.rtz"
+      "commandLineArgs": "-check c:\\github\\rtz\\test_files\\attachmenttest\\result\\rtz_with_attachments.rtzp"
     }
   }
 }

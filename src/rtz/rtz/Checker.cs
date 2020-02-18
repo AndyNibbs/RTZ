@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -16,25 +17,65 @@ namespace rtz
         {
             Filename = filename;
 
-            FilenameChecks();
+            ReadRTZFromFile();
 
-            _doc = XDocument.Load(Filename);
-
-            RootChecks();
-            XsdCheck();
-            CheckWaypointIdsAreUnique();
-            CheckAllLegs();
-            CheckAllWaypointsHaveBasics();
-            DefaultWaypointChecks();
-            WarnOfDuplicateConsecutivePositions();
-            RouteInfoChecks();
-
-            CheckSchedule();
-
-            NonStandardExtensionWarnings();
+            // Following checks mainly check on contents of _doc
+            if (_doc is object)
+            {
+                RootChecks();
+                XsdCheck();
+                CheckWaypointIdsAreUnique();
+                CheckAllLegs();
+                CheckAllWaypointsHaveBasics();
+                DefaultWaypointChecks();
+                WarnOfDuplicateConsecutivePositions();
+                RouteInfoChecks();
+                CheckSchedule();
+                NonStandardExtensionWarnings();
+            }
 
             Errors = new ReadOnlyCollection<string>(_errors);
             Warnings = new ReadOnlyCollection<string>(_warnings);
+        }
+
+        private void ReadRTZFromFile()
+        {
+            bool rtzpExtension = Path.GetExtension(Filename).Equals(".rtzp", StringComparison.InvariantCultureIgnoreCase);
+            if (rtzpExtension)
+            {
+                string name = Path.GetFileNameWithoutExtension(Filename);
+                using (var zipArchive = ZipFile.OpenRead(Filename))
+                {
+                    var entry = zipArchive.GetEntry(name + ".rtz");
+
+                    if (entry is null)
+                    {
+                        _errors.Add($"Did not find entry in RTZP called {name + ".rtz"}");
+                        return;
+                    }
+
+                    using (var stream = entry.Open())
+                    {
+                        _doc = XDocument.Load(stream);
+                    }
+                }
+
+                return;
+            }
+
+            bool rtzExtension = Path.GetExtension(Filename).Equals(".rtz", StringComparison.InvariantCultureIgnoreCase);
+
+            if (!rtzExtension)
+            {
+                _warnings.Add("Does not have RTZ extension");
+            }
+
+            if (rtzExtension && new FileInfo(Filename).Length > (400 * 1024))
+            {
+                _errors.Add("Exceeds 400kb limit");
+            }
+
+            _doc = XDocument.Load(Filename);
         }
 
         private XNamespace _namespace;
@@ -75,24 +116,6 @@ namespace rtz
             });
         }
 
-        private void FilenameChecks()
-        {
-            bool rtzpExtension = Path.GetExtension(Filename).Equals(".rtzp", StringComparison.InvariantCultureIgnoreCase);
-            if (rtzpExtension)
-                throw new NotSupportedException("Do not yet support checking RTZP, please unzip manually to check");
-
-            bool rtzExtension = Path.GetExtension(Filename).Equals(".rtz", StringComparison.InvariantCultureIgnoreCase);
-
-            if (!rtzExtension)
-            {
-                _warnings.Add("Does not have RTZ extension");
-            }
-
-            if (rtzExtension && new FileInfo(Filename).Length > (400 * 1024))
-            {
-                _errors.Add("Exceeds 400kb limit");
-            }
-        }
 
         private void RootChecks()
         {
