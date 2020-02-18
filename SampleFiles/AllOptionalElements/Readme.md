@@ -1,8 +1,8 @@
 # Test route file conforming to the minimum mandatory elements of schema version 1.0
 
-[Rtz10AllOptional.rtz](./Rtz10AllOptional.rtz)
+[RTZ1.1AllOptionalElementsAndAttributes.rtz](./RTZ1.1AllOptionalElementsAndAttributes.rtz)
 
-[Picture](./AllOptionElements.png)
+[Picture](./picture.png)
 
 # Notes
 

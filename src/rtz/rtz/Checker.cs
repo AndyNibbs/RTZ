@@ -505,7 +505,7 @@ namespace rtz
                                           "eta", "etaWindowBefore", "etaWindowAfter", "stay", "speed",
                                           "speedWindow", "windSpeed", "windDirection", "currentSpeed",
                                           "currentDirection", "windLoss", "waveLoss", "totalLoss",
-                                          "rpm", "pitch", "fuel", "relFuelSave", "absFuelSave", "Note");
+                                          "rpm", "pitch", "fuel", "relFuelSave", "absFuelSave", "note");
         }
 
         private void ScheduleGoesForwardsInTime(IEnumerable<XElement> scheduleElements)
@@ -561,7 +561,7 @@ namespace rtz
         private void CheckFirstScheduleElement(XElement scheduleElement)
         {
             // All of the other attributres refer to the "leg" which is N - 1 to N
-            AcceptableAttributesCheck(scheduleElement, "waypointId", "etd", "eta", "windSpeed", "windDirection", "Note");
+            AcceptableAttributesCheck(scheduleElement, "waypointId", "etd", "eta", "windSpeed", "windDirection", "currentSpeed", "currentDirection", "note");
         }
 
         // This is general around ensuring that default waypoint does not have information on it that
