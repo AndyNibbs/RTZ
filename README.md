@@ -52,15 +52,14 @@ e.g. RTZ -check c:\myRtzFiles c:\myCheckReport.txt
 - geometryType check for permitted values
 - Checks to detect non-standard extensions (implementors should only extension using the standard extensions elements which can be put basically EVERYWHERE!)
 
-### There's a fairly lengthy TODO list:
+### TODO...
 
-- Support checking RTZ when wrapped in RTZP.
-- Build in RTZ 1.1 XSD.
-- Better checks related to schedules
+- Build in RTZ 1.1 XSD to get from Simon Cooke
 
 ## General
 
 RTZ is a .net core 3.0 console app so it should run on Linux/MacOS as well as Windows. 
+
 
 
 Andy Nibbs

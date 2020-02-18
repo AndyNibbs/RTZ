@@ -30,7 +30,7 @@ namespace rtz
                 DefaultWaypointChecks();
                 WarnOfDuplicateConsecutivePositions();
                 RouteInfoChecks();
-                CheckSchedule();
+                CheckSchedules();
                 NonStandardExtensionWarnings();
             }
 
@@ -264,20 +264,20 @@ namespace rtz
         {
             if (HasErrors && HasWarnings)
             {
-                return $"Failed with {Errors.Count} errors and {Warnings.Count} warnings";
+                return $"FAILURE with {Errors.Count} errors and {Warnings.Count} warnings";
             }
 
             if (HasErrors)
             {
-                return $"Failed with {Errors.Count} errors";
+                return $"FAILURE with {Errors.Count} errors";
             }
             
             if (HasWarnings)
             {
-                return $"Success with {Warnings.Count} warnings";
+                return $"SUCCESS with {Warnings.Count} warnings";
             }
 
-            return "Success. No errors or warnings.";
+            return "SUCCESS. No errors or warnings.";
         }
 
         private void CheckWaypointIdsAreUnique()
@@ -431,7 +431,7 @@ namespace rtz
             }
         }
 
-        private void CheckSchedule()
+        private void CheckSchedules()
         {
             var waypointIds = _doc.Root.Element(_namespace + "waypoints").Elements(_namespace + "waypoint").Select(wp => (int)wp.Attribute("id"));
 
@@ -442,29 +442,128 @@ namespace rtz
                 return; // the best schedule is no schedule
             }
 
-            var schedules = schedulesNode.Elements("schedule");
+            var schedules = schedulesNode.Elements(_namespace + "schedule");
 
+            foreach (var schedule in schedules)
+            {
+                CheckSchedules(schedule, waypointIds.ToArray());
+            }
             
-
             // All schedules should contain the same WP ids in the same order as in
             // the waypoints section 
         }
 
-        // The only meaningful scheduleElement attributes ont he first leg are:
-        /*  waypointID
-         *  etd
-         *  windSpeed
-         *  windDirection
-         *  Note
-         *  
-         *  All of the other ones refer to the "leg" which is N-1 to N
-         *  so "previous" in line with the daftness of the standard
-         *  it is at least consistent
-         *  
-         */
+        private void CheckSchedules(XElement schedule, int[] waypointIds)
+        {
+            XElement manual = schedule.Element(_namespace + "manual");
+            XElement calculated = schedule.Element(_namespace + "calculated");
 
+            if (manual is object)
+            {
+                GeneralScheduleCheck(manual, waypointIds);
+            }
 
-        
+            if (calculated is object) 
+            {
+                GeneralScheduleCheck(calculated, waypointIds);
+            }
+        }
+
+        private void GeneralScheduleCheck(XElement sch, int[] waypointIds)
+        {
+            var scheduleElements = sch.Elements(_namespace + "scheduleElement");
+
+            if (!scheduleElements.Any())
+            {
+                _errors.Add($"Contains a {sch.Name.LocalName} schedule with no elements");
+                return;
+            }
+
+            CheckFirstScheduleElement(scheduleElements.First());
+
+            foreach(var se in scheduleElements)
+            {
+                CheckScheduleElement(se);    
+            }
+            
+            var ids = scheduleElements.Select(el => (int)el.Attribute("waypointId"));
+
+            if (!ids.SequenceEqual(waypointIds))
+            {
+                _errors.Add($"Contains an element {sch.Name.LocalName} that does not contain all waypoint ids or order is wrong");
+                return;
+            }
+
+            ScheduleGoesForwardsInTime(scheduleElements);
+        }
+
+        private void CheckScheduleElement(XElement se)
+        {
+            AttributeExistenceCheck(se, "waypointId");
+
+            AcceptableAttributesCheck(se, "waypointId", "etd", "etdWindowBefore", "etdWindowAfter",
+                                          "eta", "etaWindowBefore", "etaWindowAfter", "stay", "speed",
+                                          "speedWindow", "windSpeed", "windDirection", "currentSpeed",
+                                          "currentDirection", "windLoss", "waveLoss", "totalLoss",
+                                          "rpm", "pitch", "fuel", "relFuelSave", "absFuelSave", "Note");
+        }
+
+        private void ScheduleGoesForwardsInTime(IEnumerable<XElement> scheduleElements)
+        {
+            // Make an ordered list...
+
+            var times = new List<(int id, string type, DateTimeOffset time)>();
+
+            foreach(var se in scheduleElements)
+            {
+                int id = (int)se.Attribute("waypointId");
+
+                DateTimeOffset? etd = se.OptionalAttributeTime("etd");
+                DateTimeOffset? eta = se.OptionalAttributeTime("eta");
+
+                //TODO: if has both etd and eta AND stay we could check stay time is diff between etd and eta
+                
+                if (eta.HasValue)
+                {
+                    times.Add((id, "eta", eta.Value));
+                }
+
+                if (etd.HasValue)
+                {
+                    times.Add((id, "etd", etd.Value));
+                }
+            }
+
+            // Check the it goes forward in time...
+
+            for(int n = 0; n < times.Count - 1; ++n)
+            {
+                var ntime = times[n];
+                var next = times[n + 1];
+
+                if (ntime.id == next.id)
+                {
+                    if (next.time < ntime.time) // the eta and etd can be same 
+                    {
+                        _errors.Add($"Schedule out-of-order {next.type} after {ntime.type} for waypoint id {next.id}");
+                    }
+                }
+                else
+                {
+                    if (next.time <= ntime.time)
+                    {
+                        _errors.Add($"Schedule out-of-order {next.type} after {ntime.type} waypoints ids {ntime.id}, {next.id}");
+                    }
+                }
+            }
+        }
+
+        private void CheckFirstScheduleElement(XElement scheduleElement)
+        {
+            // All of the other attributres refer to the "leg" which is N - 1 to N
+            AcceptableAttributesCheck(scheduleElement, "waypointId", "etd", "eta", "windSpeed", "windDirection", "Note");
+        }
+
         // This is general around ensuring that default waypoint does not have information on it that
         // only makes sense for an actual waypoint
         private void DefaultWaypointChecks() 

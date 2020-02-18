@@ -106,24 +106,24 @@
         <scheduleElement waypointId="43" speed="14" />
         <scheduleElement waypointId="4"  speed="14" />
         <scheduleElement waypointId="0"  speed="14" />
-        <scheduleElement waypointId="6"  speed="14" eta="2020-04-18T14:14:00z" stay="00.06.00" etd="2020-04-18T20:14:00z" Note="Wait 6hrs before going somewhere else"/>
+        <scheduleElement waypointId="5"  speed="14" eta="2020-04-18T14:14:00z" stay="00.06.00" etd="2020-04-18T20:14:00z" Note="Wait 6hrs before going somewhere else"/>
       </manual>
       <calculated>
         <scheduleElement waypointId="11" etd="2020-02-16T00:00:00z" />
         <scheduleElement waypointId="2"  eta="2020-02-26T07:25:28z" />
         <scheduleElement waypointId="43" eta="2020-03-11T22:02:21z" />
         <scheduleElement waypointId="4"  eta="2020-03-29T11:27:49z" />
-        <scheduleElement waypointId="0"  eta="2020-04-08T15:54:48z" />
-        <scheduleElement waypointId="6"  eta="2020-04-18T14:14:00z" />
+        <scheduleElement waypointId="0"  eta="2020-04-08T15:54:48z"   />
+        <scheduleElement waypointId="5"  eta="2020-04-18T14:14:00z"  />
       </calculated>
       <extensions>
         <extension name="ScheduleExtension" manufacturer="CIRMSamples" version="6.6.6" waypointId="-1" note="waypointsId -1 here is to catch rough parsing code that uses Descendents, yes you JR ;-)" />
       </extensions>
     </schedule>
-    <schedule id="43" name="Optimised 20200216">
+	<schedule id="43" name="Optimised 20200216">
       todo need to get a load of optionals in the schedule
       S.5.9.4	ScheduleElement (manual/calculated) node description
-    </schedule>
+    </schedule>	
     <extensions>
       <extension name="SchedulesExtension" manufacturer="CIRMSamples" version="1.1.1"/>
     </extensions>

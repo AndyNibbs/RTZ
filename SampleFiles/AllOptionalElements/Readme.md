@@ -29,7 +29,4 @@ stm project seemed to have put extensions in route info which is not allowed but
 
 in line with general vagueness around element/attribute case there is doubt over waypointId vs. waypointID for schedule elements
 
-# Checks to do
-
-- schedules stuff
-- check that schedules move forward (would need to have RL and GC calcs in s/w to actually check schedules)
+Note attribute on scheduleElement should probably not start with capital letter
