@@ -91,5 +91,37 @@ namespace rtz.Properties {
                 return ResourceManager.GetString("RTZ_Schema_version_1_0", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;!--
+        ///
+        ///  Route Exchange Format (RTz)
+        ///
+        ///  XML schema
+        ///
+        ///  Revision 1.0
+        ///
+        ///  Source: IEC 61174 Ed.4.0:2015
+        ///--&gt;
+        ///
+        ///&lt;xsd:schema
+        ///  xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;
+        ///  xmlns=&quot;http://www.cirm.org/RTZ/1/0&quot;
+        ///  targetNamespace=&quot;http://www.cirm.org/RTZ/1/0&quot;
+        ///  elementFormDefault=&quot;qualified&quot;&gt;
+        ///
+        ///  &lt;xsd:annotation&gt;
+        ///    &lt;xsd:documentation&gt;
+        ///      RTZ schema version 1.0 - For more information on RTZ and this schema,
+        ///      visit http://www.cirm.org/RTZ.
+        ///
+        ///      RTZ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string RTZ_Schema_version_1_1 {
+            get {
+                return ResourceManager.GetString("RTZ_Schema_version_1_1", resourceCulture);
+            }
+        }
     }
 }

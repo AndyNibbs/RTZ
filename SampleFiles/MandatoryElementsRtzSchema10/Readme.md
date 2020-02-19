@@ -1,6 +1,6 @@
 # Test route file conforming to the minimum mandatory elements of schema version 1.0
 
-[Rtz10Mandatory.rtz](./Rtz10Mandatory.rtz)
+[Rtz10Mandatory.rtz](./RTZ1.0MandatoryElementsAndAttributes.rtz)
 
 [Picture](./RouteLinePicture.png) 
 

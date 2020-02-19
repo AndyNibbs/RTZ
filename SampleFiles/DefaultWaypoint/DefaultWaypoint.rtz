@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" >
+  <routeInfo routeName="DefaultWaypoint" routeStatus="Test route. Not for navigation!" />
+  <waypoints>
+    <defaultWaypoint radius="0.6">
+      <leg starboardXTD="0.2"
+		   portsideXTD="0.1"
+		   safetyContour="30.0"
+		   safetyDepth="35.0"
+		   geometryType="Orthodrome"
+		   planSpeedMin="13"
+		   planSpeedMax="15"
+		   draughtForward="6.27"
+		   draughtAft="6.4"
+		   staticUKC="8.0"
+		   dynamicUKC="8.8"
+		   masthead="19"
+		   legReport="defaultWaypoint.legReport"
+		   legInfo="defaultWaypoint.legInfo"
+		   legNote1="defaultWaypoint.legNote1"
+		   legNote2="defaultWaypoint.legNote2"
+		   />
+    </defaultWaypoint>
+	<waypoint id="1" name="St John's, Newfoundland, Canada">
+      <position lat="47.5666666667" lon="-52.6916666667" />
+	  <leg legInfo="It is permitted by standard to have leg element here but it has no effect" />
+    </waypoint>
+    <waypoint id="2" name="WP 2">
+      <position lat="47.5662666667" lon="-52.6892666667" />
+      <leg geometryType="Loxodrome" planSpeedMin="6" planSpeedMax="8" />
+    </waypoint>
+    <waypoint id="3" name="WP 3">
+      <position lat="47.5616666667" lon="-52.63" />
+      <leg geometryType="Loxodrome" />
+    </waypoint>
+    <waypoint id="4" name="WP 4">
+      <position lat="47.565" lon="-52.33" />
+      <leg geometryType="Loxodrome" />
+    </waypoint>
+    <waypoint id="5" name="St John's - Seasonal">
+      <position lat="47.565" lon="-52.3266666667" />
+      <leg geometryType="Loxodrome" />
+    </waypoint>
+    <waypoint id="6" name="WP 6">
+      <position lat="51.2383333333" lon="-9.7716666667" />
+	  <!-- orthodrome geometryType from defaultWaypoint should show clear for transatlantic leg -->
+	  <leg starboardXTD="4.0" 
+		   portsideXTD="4.0" 
+		   safetyContour="100.0"
+           safetyDepth="90.0" 
+		   legReport="UTC Noon reporting during transatlantic leg"
+           legInfo="Specific leg info"
+           legNote1="Specifics about ETA/ETD"
+		   legNote2="Specific local remarks" />
+    </waypoint>
+    <waypoint id="7" name="WP 7">
+      <position lat="51.6185139101" lon="-5.2060759044" />
+      <leg geometryType="Loxodrome" />
+    </waypoint>
+    <waypoint id="8" name="WP 8">
+      <position lat="51.6967" lon="-5.1372166667" />
+      <leg geometryType="Loxodrome" />
+    </waypoint>
+    <waypoint id="9" name="WP 9">
+      <position lat="51.6953166667" lon="-5.0989" />
+      <leg geometryType="Loxodrome" planSpeedMin="6" planSpeedMax="8" />
+    </waypoint>
+    <waypoint id="10" name="WP 10">
+      <position lat="51.6972666667" lon="-5.0906166667" />
+      <leg geometryType="Loxodrome" planSpeedMin="6" planSpeedMax="8" />
+    </waypoint>
+    <waypoint id="11" name="WP 11">
+      <position lat="51.6963" lon="-5.0729333333" />
+      <leg geometryType="Loxodrome" planSpeedMin="6" planSpeedMax="8"/>
+    </waypoint>
+    <waypoint id="12" name="Milford Haven">
+      <position lat="51.6983333333" lon="-5.0533333333" />
+      <leg geometryType="Loxodrome" planSpeedMin="6" planSpeedMax="8"/>
+    </waypoint>
+  </waypoints>
+</route>

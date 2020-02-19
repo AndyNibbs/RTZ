@@ -34,27 +34,32 @@ e.g. RTZ -check c:\myRtzFiles c:\myCheckReport.txt
 
 ### Non-exhaustive, best efforts list of checks...
 - Standard schema check
+- Check that filename matches routeName attribute
 - Check size is below 400kb limit
 - Check that waypoint ids are unique
 - Checking existence and values of version attribute prior to schema check
 - Warn of very short route legs
+- Check validityPeriodStart is before validityPeriodStop
+- Check vesselMMSI looks like an MMSI (warning)
+- Check vesselIMO looks like an IMO number (warning)
+- Check vesselGM is sensible
+- Check that vesselSpeedMax is >= vesselServiceMax, vesselSpeedMax is >= vesselServiceMin, service max >= service min
+- Various length checks on routeInfo attributes (a very long route name would probably work badly on many systems, a field intended for route number should be fairly short, these are warnings)
+- Check for attributes of defaultWaypoint that do not make sense (e.g. id)
+- Check that defaultWaypoint does not have a position
+- Check that each waypoint has a position with lat and lon
+- Leg checks (including warning against having a leg on the first WP)
+- geometryType check for permitted values
+- Checks to detect non-standard extensions (implementors should only extension using the standard extensions elements which can be put basically EVERYWHERE!)
 
-### There's a fairly lengthy TODO list:
+### TODO...
 
-- Support checking RTZ when wrapped in RTZP.
-- Build in RTZ 1.1 XSD.
-- Warnings around "sane" RouteInfo values beyond what XSD checks
-- etc etc..
-
-
-
-
-
-
+- Build in RTZ 1.1 XSD to get from Simon Cooke
 
 ## General
 
-RTZ is a .net core 3.1 console app so it should run on Linux/MacOS as well as Windows. 
+RTZ is a .net core 3.0 console app so it should run on Linux/MacOS as well as Windows. 
+
 
 
 Andy Nibbs

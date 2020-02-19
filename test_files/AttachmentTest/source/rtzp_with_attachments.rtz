@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1">
-    <routeInfo routeName="JPNGO_STLAW_1_SCHEDULE_RTZ">
+    <routeInfo routeName="rtzp_with_attachments">
     </routeInfo>
     <waypoints>
         <waypoint id="1" name="JPNGO NE">
