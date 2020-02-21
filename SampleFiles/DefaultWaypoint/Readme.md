@@ -1,8 +1,8 @@
 # Test route file focussing on DefaultWaypoint
 
-[defaultWaypoint.rtz](./defaultWaypoint.rtz)
+[DefaultWaypoint.rtz](./DefaultWaypoint.rtz)
 
-[defaultwaypoint.png](./defaultWaypoint.png)
+[Defaultwaypoint.png](./DefaultWaypoint.png)
 
 T14: Make/or choose a test file to suit 
 
