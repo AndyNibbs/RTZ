@@ -31,16 +31,6 @@ namespace rtz
             return (DateTimeOffset)att;
         }
 
-        public static double? OptionalAttributeDouble(this XElement element, string attributeName)
-        {
-            var att = element.Attribute(attributeName);
-
-            if (att is null)
-            {
-                return null;
-            }
-
-            return (double)att;
-        }
+       
     }
 }

@@ -282,7 +282,14 @@ namespace rtz
 
         private void CheckWaypointIdsAreUnique()
         {
-            var ids = _doc.Root.Element(_namespace + "waypoints").Elements(_namespace + "waypoint").Select(wp => wp.Attribute("id").Value);
+            var waypoints = _doc.Root.Element(_namespace + "waypoints").Elements(_namespace + "waypoint");
+            var ids = waypoints.Where(wp => wp.Attribute("id") is object).Select(wp => wp.Attribute("id").Value);
+
+            if (waypoints.Count() != ids.Count())
+            {
+                _errors.Add($"{waypoints.Count() - ids.Count()} waypoints of {waypoints.Count()} waypoints do not have an id attribute");
+            }
+
             var dupes = ids.GroupBy(id => id).Where(g => g.Count() > 1).Select(g => g.Key);
             dupes.ForEach(dupe => _errors.Add($"Waypoint id {dupe} appears more than one once in waypoints element"));
         }
@@ -357,14 +364,14 @@ namespace rtz
                 _warnings.Add($"vesselIMO ({imo}) does not look like an IMO number");
 
 
-            double? vesselGM = routeInfoElement.OptionalAttributeDouble("vesselGM");
+            double? vesselGM = OptionalAttributeDouble(routeInfoElement, "vesselGM");
             if (vesselGM.HasValue && vesselGM.Value < 0.15)
                 _warnings.Add($"vesselGM is below that allowed by UK Department for Transport");
 
 
-            double? vesselSpeedMax = routeInfoElement.OptionalAttributeDouble("vesselSpeedMax");
-            double? vesselServiceMin = routeInfoElement.OptionalAttributeDouble("vesselServiceMin");
-            double? vesselServiceMax = routeInfoElement.OptionalAttributeDouble("vesselServiceMax");
+            double? vesselSpeedMax = OptionalAttributeDouble(routeInfoElement, "vesselSpeedMax");
+            double? vesselServiceMin = OptionalAttributeDouble(routeInfoElement, "vesselServiceMin");
+            double? vesselServiceMax = OptionalAttributeDouble(routeInfoElement, "vesselServiceMax");
             if (vesselServiceMin.HasValue && vesselServiceMax.HasValue && vesselServiceMax.Value < vesselServiceMin.Value)
             {
                 _errors.Add("vesselServiceMax < vesselServiceMin");
@@ -433,7 +440,7 @@ namespace rtz
 
         private void CheckSchedules()
         {
-            var waypointIds = _doc.Root.Element(_namespace + "waypoints").Elements(_namespace + "waypoint").Select(wp => (int)wp.Attribute("id"));
+            var waypointIds = _doc.Root.Element(_namespace + "waypoints").Elements(_namespace + "waypoint").Where(wp => wp.Attribute("id") is object).Select(wp => (int)wp.Attribute("id"));
 
             XElement schedulesNode = _doc.Root.Element(_namespace + "schedules");
 
@@ -486,7 +493,12 @@ namespace rtz
                 CheckScheduleElement(se);    
             }
             
-            var ids = scheduleElements.Select(el => (int)el.Attribute("waypointId"));
+            var ids = scheduleElements.Where(el => el.Attribute("waypointId") is object).Select(el => (int)el.Attribute("waypointId"));
+
+            if (ids.Count() != scheduleElements.Count())
+            {
+                _errors.Add($"Schedule found that contains scheduleElements(s) without waypointId attribute");
+            }
 
             if (!ids.SequenceEqual(waypointIds))
             {
@@ -512,12 +524,11 @@ namespace rtz
         {
             // Make an ordered list...
 
-            var times = new List<(int id, string type, DateTimeOffset time)>();
+            var times = new List<(int index, string type, DateTimeOffset time)>();
 
+            int ind = 0;
             foreach(var se in scheduleElements)
             {
-                int id = (int)se.Attribute("waypointId");
-
                 DateTimeOffset? etd = se.OptionalAttributeTime("etd");
                 DateTimeOffset? eta = se.OptionalAttributeTime("eta");
 
@@ -525,13 +536,15 @@ namespace rtz
                 
                 if (eta.HasValue)
                 {
-                    times.Add((id, "eta", eta.Value));
+                    times.Add((ind, "eta", eta.Value));
                 }
 
                 if (etd.HasValue)
                 {
-                    times.Add((id, "etd", etd.Value));
+                    times.Add((ind, "etd", etd.Value));
                 }
+
+                ++ind;
             }
 
             // Check the it goes forward in time...
@@ -541,18 +554,18 @@ namespace rtz
                 var ntime = times[n];
                 var next = times[n + 1];
 
-                if (ntime.id == next.id)
+                if (ntime.index == next.index)
                 {
                     if (next.time < ntime.time) // the eta and etd can be same 
                     {
-                        _errors.Add($"Schedule out-of-order {next.type} after {ntime.type} for waypoint id {next.id}");
+                        _errors.Add($"Schedule out-of-order {next.type} after {ntime.type} for waypoint index {next.index}");
                     }
                 }
                 else
                 {
                     if (next.time <= ntime.time)
                     {
-                        _errors.Add($"Schedule out-of-order {next.type} after {ntime.type} waypoints ids {ntime.id}, {next.id}");
+                        _errors.Add($"Schedule out-of-order {next.type} after {ntime.type} waypoints index {ntime.index}, {next.index}");
                     }
                 }
             }
@@ -668,7 +681,7 @@ namespace rtz
                 var allSchedules = schedules.Elements(_namespace + "schedule");
                 foreach (var sch in allSchedules)
                     AcceptableElementsCheck(sch, "manual", "calculated", "extensions");
-                               
+
                 var allManuals = allSchedules.Elements(_namespace + "manual");
                 foreach (var man in allManuals)
                     AcceptableElementsCheck(man, "scheduleElement", "extensions");
@@ -681,6 +694,27 @@ namespace rtz
                 foreach (var se in allSchEl)
                     AcceptableElementsCheck(se, "extensions");
             }
+        }
+
+        private double? OptionalAttributeDouble(XElement element, string attributeName)
+        {
+            var att = element.Attribute(attributeName);
+
+            if (att is null)
+            {
+                return null;
+            }
+
+            if (double.TryParse(att.Value, out double result))
+            {
+                return result;
+            }
+            else
+            {
+                _errors.Add($"Failed to parse value {att.Value} from attribute {attributeName} from {element.Name.LocalName} element");
+            }
+
+            return null;
         }
     }
 }

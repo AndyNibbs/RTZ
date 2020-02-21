@@ -18,7 +18,7 @@ namespace rtz
             Console.WriteLine("RTZ -unzip rtzp-filename [folder]");
             Console.WriteLine("\tExtracts contents of an RTZP to a given folder or defaults to filename of RTZP as folder name");
             Console.WriteLine();
-            Console.WriteLine("rtz -check <rtz or rtzp filename> [report destination]");
+            Console.WriteLine("rtz -check <rtz or rtzp filename> [report destination] [-terse]");
             Console.WriteLine("\tChecks file against standard");
             return 1;
         }
@@ -43,6 +43,10 @@ namespace rtz
 
         static int SafeMain(string[] args)
         {
+            // Get terse flag then "delete" it from args to leave future parsing alone
+            bool terse = args.Contains("-terse", StringComparer.InvariantCultureIgnoreCase);
+            args = args.Where(a => !a.Equals("-terse", StringComparison.InvariantCultureIgnoreCase)).ToArray();
+            
             if (args.Length < 2) return Usage();
             string target = args[1]; // 2nd param always a file
             string destination = args.Length >= 3 ? args[2] : string.Empty;
@@ -69,7 +73,7 @@ namespace rtz
             {
                 if (Directory.Exists(target))
                 {
-                    return CheckFolderCommand(target, destination);
+                    return CheckFolderCommand(target, destination, terse);
                 }
 
                 if (!File.Exists(target))
@@ -77,7 +81,7 @@ namespace rtz
                     return FileNotFound(target);
                 }
 
-                return CheckCommand(target, destination);
+                return CheckCommand(target, destination, terse);
             }
             else 
             {
@@ -108,11 +112,11 @@ namespace rtz
             Console.WriteLine("Successful");
         }
 
-        private static int CheckCommand(string target, string destination)
+        private static int CheckCommand(string target, string destination, bool terse)
         {
             var checker = new Checker(target);
 
-            string report = checker.Report();
+            string report = ReportOrTerse(checker, terse);
 
             if (!string.IsNullOrEmpty(destination))
             {
@@ -127,10 +131,10 @@ namespace rtz
             return checker.Passed ? 0 : 2;
         }
 
-        private static int CheckFolderCommand(string target, string destination)
+        private static int CheckFolderCommand(string target, string destination, bool terse)
         {
             var rtz = Directory.EnumerateFiles(target, "*.rtz", SearchOption.AllDirectories);
-            var rtzp = Directory.EnumerateFiles(target, "*.rtz", SearchOption.AllDirectories);
+            var rtzp = Directory.EnumerateFiles(target, "*.rtzp", SearchOption.AllDirectories);
             var combined = rtz.Concat(rtzp);
 
             if (!combined.Any())
@@ -146,7 +150,7 @@ namespace rtz
             {
                 var checker = new Checker(filename);
 
-                string report = checker.Report();
+                string report = ReportOrTerse(checker, terse);
 
                 if (!string.IsNullOrEmpty(destination))
                 {
@@ -173,6 +177,18 @@ namespace rtz
             return result;
         }
 
+        private static string ReportOrTerse(Checker checker, bool terse)
+        {
+            if (terse)
+            {
+                return $"{(checker.Passed ? "Pass" : "Fail")}\t{checker.Errors.Count} errors {checker.Warnings.Count} warnings\t{Ellipsis(checker.Filename, 60)}";
+            }
+            else
+            {
+                return checker.Report();
+            }
+        }
+
         private static int FileNotFound(string target)
         {
             Console.WriteLine($"File not found {target}");
@@ -186,5 +202,19 @@ namespace rtz
             string command = args[0];
             return command.Equals("-" + commandName, StringComparison.InvariantCultureIgnoreCase);
         }
+
+        private static string Ellipsis(string input, int maxlen)
+        {
+            if (input.Length > maxlen)
+            {
+                int start = input.Length - (maxlen - 3);
+                int number = maxlen - 3;
+
+                return "..." + input.Substring(start, number);
+            }
+
+            return input;
+        }
+
     }
 }

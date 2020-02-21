@@ -1,7 +1,0 @@
-Good errors to do
-
-- non standard extensions (extensions that do not use the proper extensibility)
-- "shedule"
-- something that schema checking can easily catch
-- routename doesn't match filename
-
