@@ -676,21 +676,24 @@ namespace rtz
             foreach(var el in extensions)
                 AcceptableElementsCheck(el, "extension");
 
-            var allSchedules = schedules.Elements(_namespace + "schedule");
-            foreach (var sch in allSchedules)
-                AcceptableElementsCheck(sch, "manual", "calculated", "extensions");
+            if (schedules is object)
+            {
+                var allSchedules = schedules.Elements(_namespace + "schedule");
+                foreach (var sch in allSchedules)
+                    AcceptableElementsCheck(sch, "manual", "calculated", "extensions");
 
-            var allManuals = schedules.Elements(_namespace + "manual");
-            foreach (var man in allManuals)
-                AcceptableElementsCheck(man, "scheduleElement", "extensions");
+                var allManuals = allSchedules.Elements(_namespace + "manual");
+                foreach (var man in allManuals)
+                    AcceptableElementsCheck(man, "scheduleElement", "extensions");
 
-            var allCalc = schedules.Elements(_namespace + "calculated");
-            foreach (var calc in allCalc)
-                AcceptableElementsCheck(calc, "scheduleElement", "extensions");
+                var allCalc = allSchedules.Elements(_namespace + "calculated");
+                foreach (var calc in allCalc)
+                    AcceptableElementsCheck(calc, "scheduleElement", "extensions");
 
-            var allSchEl = schedules.Descendants(_namespace + "scheduleElement");
-            foreach (var se in allSchEl)
-                AcceptableElementsCheck(se, "extensions");
+                var allSchEl = schedules.Descendants(_namespace + "scheduleElement");
+                foreach (var se in allSchEl)
+                    AcceptableElementsCheck(se, "extensions");
+            }
         }
 
         private double? OptionalAttributeDouble(XElement element, string attributeName)
