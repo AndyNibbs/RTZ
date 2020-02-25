@@ -11,10 +11,10 @@
   vesselIMO="4907062"
   vesselVoyage="99A"
   vesselDisplacement="4820"
-  vesselCargo="') DROP TABLE Cargo;"
+  vesselCargo="Stones"
   vesselGM="2.12"
   optimizationMethod="Simulated Annealing"
-  vesselMaxRoll="10.0"
+  vesselMaxRoll="10"
   vesselMaxWave="7.8"
   vesselSpeedMax="30.0"
   vesselServiceMin="12.0"
@@ -100,7 +100,7 @@
         <scheduleElement waypointId="43" speed="20.0" />
         <scheduleElement waypointId="4"  speed="20.0" />
         <scheduleElement waypointId="0"  speed="20.0" />
-        <scheduleElement waypointId="5"  speed="20.0" eta="2020-02-27T21:38:42z" stay="00.02.00" etd="2020-02-27T23:38:42z" note="Wait 2hrs before going somewhere else" />
+        <scheduleElement waypointId="5"  speed="20.0" eta="2020-02-27T21:38:42z" stay="00.02.00" etd="2020-02-27T23:38:42z" Note="Wait 2hrs before going somewhere else" />
       </manual>
       <calculated>
 		<scheduleElement waypointId="11" etd="2020-02-18T00:00:00z" />
@@ -119,10 +119,10 @@
 		<calculated>
 			<scheduleElement waypointId="11" etd="2020-02-18T00:00:00z" windDirection="277" windSpeed="5.9"  currentSpeed="0.7" currentDirection="58" />
 			<scheduleElement waypointId="2"  eta="2020-02-18T00:04:22z" windDirection="165" windSpeed="27.5" currentSpeed="0.7" currentDirection="58" windLoss="-0.4" waveLoss="0.1" totalLoss="-0.3" etdWindowBefore="-00.01" etdWindowAfter="+00.01" etaWindowBefore="-00.01" etaWindowAfter="+00.01"  speedWindow="0.10" rpm="600" pitch="1"  fuel="2567" relFuelSave="10" absFuelSave="5" />
-			<scheduleElement waypointId="43" eta="2020-02-25T17:36:25z" windDirection="165" windSpeed="27.5" currentSpeed="0.0" currentDirection="60" windLoss= "0.9" waveLoss="1.9" totalLoss= "2.8" etdWindowBefore="-09.30" etdWindowAfter="+09.15" etaWindowBefore="-09.15" etaWindowAfter="+09.15"  speedWindow="3.15" rpm="642" pitch="13" fuel="1,153,131‬" relFuelSave="12549" absFuelSave="23134" />
-			<scheduleElement waypointId="4"  eta="2020-02-27T14:17:34z" note="out of forecast range" />      
-			<scheduleElement waypointId="0"  eta="2020-02-27T19:26:51z" note="out of forecast range" />      
-			<scheduleElement waypointId="5"  eta="2020-02-27T21:38:42z" note="out of forecast range" />        
+			<scheduleElement waypointId="43" eta="2020-02-25T17:36:25z" windDirection="165" windSpeed="27.5" currentSpeed="0.0" currentDirection="60" windLoss= "0.9" waveLoss="1.9" totalLoss= "2.8" etdWindowBefore="-09.30" etdWindowAfter="+09.15" etaWindowBefore="-09.15" etaWindowAfter="+09.15"  speedWindow="3.15" rpm="642" pitch="13" fuel="1112567" relFuelSave="12549" absFuelSave="23134" />
+			<scheduleElement waypointId="4"  eta="2020-02-27T14:17:34z" Note="out of forecast range" />      
+			<scheduleElement waypointId="0"  eta="2020-02-27T19:26:51z" Note="out of forecast range" />      
+			<scheduleElement waypointId="5"  eta="2020-02-27T21:38:42z" Note="out of forecast range" />        
 		</calculated>
 	</schedule>
 	

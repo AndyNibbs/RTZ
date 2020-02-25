@@ -86,15 +86,13 @@ namespace rtz
 
             if (version.Equals("1.0", StringComparison.InvariantCultureIgnoreCase))
             {
-                XsdCheck(Properties.Resources.RTZ_Schema_version_1_0);
+                XsdCheck(@"http://www.cirm.org/RTZ/1/0", Properties.Resources.RTZ_Schema_version_1_0);
                 _namespace = XNamespace.Get("http://www.cirm.org/RTZ/1/0");
             }
             else if (version.Equals("1.1", StringComparison.InvariantCultureIgnoreCase))
             {
-                XsdCheck(Properties.Resources.RTZ_Schema_version_1_1);
+                XsdCheck(@"http://www.cirm.org/RTZ/1/1", Properties.Resources.RTZ_Schema_version_1_1);
                 _namespace = XNamespace.Get("http://www.cirm.org/RTZ/1/1");
-
-                _warnings.Add("Version of file is 1.1 but not checked with OFFICIAL SCHEMA");
             }
             else
             {
@@ -102,10 +100,10 @@ namespace rtz
             }
         }
 
-        private void XsdCheck(string xsd)
+        private void XsdCheck(string targetNamespace, string xsdContents)
         {
             var schemas = new XmlSchemaSet();
-            schemas.Add("http://www.cirm.org/RTZ/1/0", XmlReader.Create(new StringReader(xsd)));
+            schemas.Add(targetNamespace, XmlReader.Create(new StringReader(xsdContents)));
            
             _doc.Validate(schemas, (o, e) =>
             {
@@ -517,7 +515,7 @@ namespace rtz
                                           "eta", "etaWindowBefore", "etaWindowAfter", "stay", "speed",
                                           "speedWindow", "windSpeed", "windDirection", "currentSpeed",
                                           "currentDirection", "windLoss", "waveLoss", "totalLoss",
-                                          "rpm", "pitch", "fuel", "relFuelSave", "absFuelSave", "note");
+                                          "rpm", "pitch", "fuel", "relFuelSave", "absFuelSave", "Note");
         }
 
         private void ScheduleGoesForwardsInTime(IEnumerable<XElement> scheduleElements)

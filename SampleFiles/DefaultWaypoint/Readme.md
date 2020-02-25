@@ -16,3 +16,7 @@ QUESTIONS
 
 What can a defaultWaypoint include? - I think quite a lot of things as this sample suggests but need to make sure that fits with Simon Cooke's schema knowledge
 
+speedMin speedMax vs. planSpeedMin planSpeedMax
+
+xsd:time or xsd:duration
+

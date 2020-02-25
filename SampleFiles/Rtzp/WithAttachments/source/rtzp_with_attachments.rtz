@@ -5,8 +5,8 @@
     <waypoints>
         <waypoint id="1" name="JPNGO NE">
             <position lat="34.25855000" lon="137.17881667"/>
-			<extensions manufacturer="Chersoft" version="0.1">
-				<extension>
+			<extensions>
+				<extension manufacturer="Chersoft" version="0.1" name="attachment">
 					<property>rtz://myAttachment.txt</property>
 					<inAtt attach="rtz://mySecondAttachment.txt"/>
 				</extension>
@@ -53,8 +53,8 @@
             </calculated>
 	</schedule>
     </schedules>
-	<extensions manufacturer="Chersoft" version="0.1">
-		<extension>
+	<extensions>
+		<extension manufacturer="Chersoft" version="0.1" name="attachment">
 			<property>rtz://subfolder/myThirdAttachment.txt</property>
 			<inAtt attach="rtz://myMissingAttachment.txt"/>
 		</extension>
