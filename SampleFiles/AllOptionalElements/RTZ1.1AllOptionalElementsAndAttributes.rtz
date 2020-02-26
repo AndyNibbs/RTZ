@@ -37,8 +37,8 @@
 		   safetyContour="30.0"
 		   safetyDepth="35.0"
 		   geometryType="Orthodrome"
-		   planSpeedMin="6"
-		   planSpeedMax="18"
+		   speedMin="6"
+		   speedMax="18"
 		   draughtForward="6.27"
 		   draughtAft="6.4"
 		   staticUKC="8.0"
@@ -65,8 +65,8 @@
 				 portsideXTD="1.1"
 				 safetyContour="100.0"
 				 safetyDepth="90.0"
-				 planSpeedMin="15"
-				 planSpeedMax="18"
+				 speedMin="15"
+				 speedMax="18"
 				 draughtForward="6.3"
 				 draughtAft="6.42"
 				 staticUKC="8.2"
@@ -118,8 +118,8 @@
 	<schedule id="996" name="Optimised schedule">
 		<calculated>
 			<scheduleElement waypointId="11" etd="2020-02-18T00:00:00z" windDirection="277" windSpeed="5.9"  currentSpeed="0.7" currentDirection="58" />
-			<scheduleElement waypointId="2"  eta="2020-02-18T00:04:22z" windDirection="165" windSpeed="27.5" currentSpeed="0.7" currentDirection="58" windLoss="-0.4" waveLoss="0.1" totalLoss="-0.3" etdWindowBefore="-00.01" etdWindowAfter="+00.01" etaWindowBefore="-00.01" etaWindowAfter="+00.01"  speedWindow="0.10" rpm="600" pitch="1"  fuel="2567" relFuelSave="10" absFuelSave="5" />
-			<scheduleElement waypointId="43" eta="2020-02-25T17:36:25z" windDirection="165" windSpeed="27.5" currentSpeed="0.0" currentDirection="60" windLoss= "0.9" waveLoss="1.9" totalLoss= "2.8" etdWindowBefore="-09.30" etdWindowAfter="+09.15" etaWindowBefore="-09.15" etaWindowAfter="+09.15"  speedWindow="3.15" rpm="642" pitch="13" fuel="1112567" relFuelSave="12549" absFuelSave="23134" />
+			<scheduleElement waypointId="2"  eta="2020-02-18T00:04:22z" windDirection="165" windSpeed="27.5" currentSpeed="0.7" currentDirection="58" windLoss="0.1" waveLoss="0.1" totalLoss="0.2"  etdWindowBefore="-00:01" etdWindowAfter="00:01" etaWindowBefore="-00:01" etaWindowAfter="00:01"  speedWindow="0.10" rpm="600" pitch="1"  fuel="2567" relFuelSave="10" absFuelSave="5" />
+			<scheduleElement waypointId="43" eta="2020-02-25T17:36:25z" windDirection="165" windSpeed="27.5" currentSpeed="0.0" currentDirection="60" windLoss="0.9" waveLoss="1.9" totalLoss= "2.8" etdWindowBefore="-09:30" etdWindowAfter="09:15" etaWindowBefore="-09:15" etaWindowAfter="09:15"  speedWindow="3.15" rpm="642" pitch="13" fuel="1112567" relFuelSave="12549" absFuelSave="23134" />
 			<scheduleElement waypointId="4"  eta="2020-02-27T14:17:34z" Note="out of forecast range" />      
 			<scheduleElement waypointId="0"  eta="2020-02-27T19:26:51z" Note="out of forecast range" />      
 			<scheduleElement waypointId="5"  eta="2020-02-27T21:38:42z" Note="out of forecast range" />        

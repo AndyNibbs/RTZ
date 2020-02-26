@@ -2,7 +2,7 @@
   "profiles": {
     "rtz": {
       "commandName": "Project",
-      "commandLineArgs": "-check ..\\..\\..\\..\\..\\..\\samplefiles -terse"
+      "commandLineArgs": "-check ..\\..\\..\\..\\..\\..\\samplefiles"
     }
   }
 }

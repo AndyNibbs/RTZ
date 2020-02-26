@@ -598,7 +598,7 @@ namespace rtz
 
             AttributeContentsCheck(leg, "geometryType", "Orthodrome", "Loxodrome");
 
-            AcceptableAttributesCheck(leg, "starboardXTD", "portsideXTD", "safetyContour", "safetyDepth", "geometryType", "planSpeedMin", "planSpeedMax",
+            AcceptableAttributesCheck(leg, "starboardXTD", "portsideXTD", "safetyContour", "safetyDepth", "geometryType", "speedMin", "speedMax",
                                            "draughtForward", "draughtAft", "staticUKC", "dynamicUKC", "masthead", "legReport", "legInfo", "legNote1", "legNote2");
 
         }

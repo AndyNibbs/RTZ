@@ -8,8 +8,8 @@
 		   safetyContour="30.0"
 		   safetyDepth="35.0"
 		   geometryType="Orthodrome"
-		   planSpeedMin="13"
-		   planSpeedMax="15"
+		   speedMin="13"
+		   speedMax="15"
 		   draughtForward="6.27"
 		   draughtAft="6.4"
 		   staticUKC="8.0"
@@ -27,7 +27,7 @@
     </waypoint>
     <waypoint id="2" revision="12" name="WP 2">
       <position lat="47.5662666667" lon="-52.6892666667" />
-      <leg geometryType="Loxodrome" planSpeedMin="6" planSpeedMax="8" />
+      <leg geometryType="Loxodrome" speedMin="6" speedMax="8" />
     </waypoint>
     <waypoint id="3"  revision="13" name="WP 3">
       <position lat="47.5616666667" lon="-52.63" />
@@ -63,19 +63,19 @@
     </waypoint>
     <waypoint id="9" revision="19"  name="WP 9">
       <position lat="51.6953166667" lon="-5.0989" />
-      <leg geometryType="Loxodrome" planSpeedMin="6" planSpeedMax="8" />
+      <leg geometryType="Loxodrome" speedMin="6" speedMax="8" />
     </waypoint>
     <waypoint id="10" revision="20" name="WP 10">
       <position lat="51.6972666667" lon="-5.0906166667" />
-      <leg geometryType="Loxodrome" planSpeedMin="6" planSpeedMax="8" />
+      <leg geometryType="Loxodrome" speedMin="6" speedMax="8" />
     </waypoint>
     <waypoint id="11" revision="21" name="WP 11">
       <position lat="51.6963" lon="-5.0729333333" />
-      <leg geometryType="Loxodrome" planSpeedMin="6" planSpeedMax="8"/>
+      <leg geometryType="Loxodrome" speedMin="6" speedMax="8"/>
     </waypoint>
     <waypoint id="12" revision="22" name="Milford Haven">
       <position lat="51.6983333333" lon="-5.0533333333" />
-      <leg geometryType="Loxodrome" planSpeedMin="6" planSpeedMax="8"/>
+      <leg geometryType="Loxodrome" speedMin="6" speedMax="8"/>
     </waypoint>
   </waypoints>
 </route>
