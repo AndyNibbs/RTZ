@@ -18,8 +18,11 @@ namespace rtz
             Console.WriteLine("RTZ -unzip rtzp-filename [folder]");
             Console.WriteLine("\tExtracts contents of an RTZP to a given folder or defaults to filename of RTZP as folder name");
             Console.WriteLine();
-            Console.WriteLine("rtz -check <rtz or rtzp filename> [report destination] [-terse]");
+            Console.WriteLine("rtz -check <rtz or rtzp filename> [report destination] [-terse] [-routeNameWarn] [-errorsOnly]");
             Console.WriteLine("\tChecks file against standard");
+            Console.WriteLine("\t-terse does not include detail just error and warning counts");
+            Console.WriteLine("\t-routeNameWarn does not error if routeName does not match filename (this is common)");
+            Console.WriteLine("\t-errorsOnly doesn't mention ones that pass");
             return 1;
         }
 
@@ -43,15 +46,15 @@ namespace rtz
 
         static int SafeMain(string[] args)
         {
-            // Get terse flag then "delete" it from args to leave future parsing alone
-            bool terse = args.Contains("-terse", StringComparer.InvariantCultureIgnoreCase);
-            args = args.Where(a => !a.Equals("-terse", StringComparison.InvariantCultureIgnoreCase)).ToArray();
-            
+            CheckFlags flags = InitCheckFlags(args);
+
+            args = RemoveSwitches(args);
+
             if (args.Length < 2) return Usage();
             string target = args[1]; // 2nd param always a file
             string destination = args.Length >= 3 ? args[2] : string.Empty;
 
-            if (IsCommand(args,"zip"))
+            if (IsCommand(args, "zip"))
             {
                 if (!File.Exists(target))
                 {
@@ -73,7 +76,7 @@ namespace rtz
             {
                 if (Directory.Exists(target))
                 {
-                    return CheckFolderCommand(target, destination, terse);
+                    return CheckFolderCommand(target, destination, flags);
                 }
 
                 if (!File.Exists(target))
@@ -81,7 +84,7 @@ namespace rtz
                     return FileNotFound(target);
                 }
 
-                return CheckCommand(target, destination, terse);
+                return CheckCommand(target, destination, flags);
             }
             else 
             {
@@ -89,6 +92,28 @@ namespace rtz
             }
 
             return 0;
+        }
+
+        private static string[] RemoveSwitches(string[] args)
+        {
+            args = RemoveSwitch(args, "-terse");
+            args = RemoveSwitch(args, "-routeNameWarn");
+            args = RemoveSwitch(args, "-errorsOnly");
+            return args;
+        }
+
+        private static string[] RemoveSwitch(string[] args, string switchName)
+        {
+            return args.Where(a => !a.Equals(switchName, StringComparison.InvariantCultureIgnoreCase)).ToArray();
+        }
+
+        private static CheckFlags InitCheckFlags(string[] args)
+        {
+            // Get terse flag then "delete" it from args to leave future parsing alone
+            bool terse = args.Contains("-terse", StringComparer.InvariantCultureIgnoreCase);
+            bool routeNameWarn = args.Contains("-routeNameWarn", StringComparer.InvariantCultureIgnoreCase);
+            bool errorsOnly = args.Contains("-errorsOnly", StringComparer.InvariantCultureIgnoreCase);
+            return new CheckFlags { Terse = terse, RouteNameOnlyWarning = routeNameWarn, ErrorsOnly=errorsOnly };
         }
 
         private static void UnzipCommand(string target, string destination)
@@ -112,11 +137,11 @@ namespace rtz
             Console.WriteLine("Successful");
         }
 
-        private static int CheckCommand(string target, string destination, bool terse)
+        private static int CheckCommand(string target, string destination, CheckFlags flags)
         {
-            var checker = new Checker(target);
+            var checker = new Checker(target, flags.RouteNameOnlyWarning);
 
-            string report = ReportOrTerse(checker, terse);
+            string report = ReportOrTerse(checker, flags);
 
             if (!string.IsNullOrEmpty(destination))
             {
@@ -131,7 +156,7 @@ namespace rtz
             return checker.Passed ? 0 : 2;
         }
 
-        private static int CheckFolderCommand(string target, string destination, bool terse)
+        private static int CheckFolderCommand(string target, string destination, CheckFlags flags)
         {
             var rtz = Directory.EnumerateFiles(target, "*.rtz", SearchOption.AllDirectories);
             var rtzp = Directory.EnumerateFiles(target, "*.rtzp", SearchOption.AllDirectories);
@@ -148,9 +173,14 @@ namespace rtz
 
             foreach (string filename in combined)
             {
-                var checker = new Checker(filename);
+                var checker = new Checker(filename, flags.RouteNameOnlyWarning);
 
-                string report = ReportOrTerse(checker, terse);
+                if (flags.ErrorsOnly && checker.Passed)
+                {
+                    continue;
+                }
+
+                string report = ReportOrTerse(checker, flags);
 
                 if (!string.IsNullOrEmpty(destination))
                 {
@@ -177,9 +207,9 @@ namespace rtz
             return result;
         }
 
-        private static string ReportOrTerse(Checker checker, bool terse)
+        private static string ReportOrTerse(Checker checker, CheckFlags flags)
         {
-            if (terse)
+            if (flags.Terse)
             {
                 return $"{(checker.Passed ? "Pass" : "Fail")}\t{checker.Errors.Count} errors {checker.Warnings.Count} warnings\t{Ellipsis(checker.Filename, 60)}";
             }
