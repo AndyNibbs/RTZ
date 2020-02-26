@@ -31,6 +31,7 @@ namespace rtz
                 WarnOfDuplicateConsecutivePositions();
                 RouteInfoChecks();
                 CheckSchedules();
+                TryParsingXsdDuration();
                 NonStandardExtensionWarnings();
             }
 
@@ -86,11 +87,13 @@ namespace rtz
 
             if (version.Equals("1.0", StringComparison.InvariantCultureIgnoreCase))
             {
+                Version = "1.0";
                 XsdCheck(@"http://www.cirm.org/RTZ/1/0", Properties.Resources.RTZ_Schema_version_1_0);
                 _namespace = XNamespace.Get("http://www.cirm.org/RTZ/1/0");
             }
             else if (version.Equals("1.1", StringComparison.InvariantCultureIgnoreCase))
             {
+                Version = "1.1";
                 XsdCheck(@"http://www.cirm.org/RTZ/1/1", Properties.Resources.RTZ_Schema_version_1_1);
                 _namespace = XNamespace.Get("http://www.cirm.org/RTZ/1/1");
             }
@@ -257,6 +260,8 @@ namespace rtz
         public bool HasErrors => Errors.Any();
         public bool HasWarnings => Warnings.Any();
         public bool Passed => !HasErrors;
+
+        public string Version { get; private set; }
 
         public string SuccessDescription()
         {
@@ -714,6 +719,41 @@ namespace rtz
 
             return null;
         }
-    }
+
+        private void TryParsingXsdDuration()
+        {
+            if (!Version.Equals("1.1", StringComparison.InvariantCultureIgnoreCase))
+                return;
+
+            var schedElems = _doc.Descendants(_namespace + "scheduleElement");
+
+            IEnumerable<XAttribute> stays = schedElems.Where(e => e.Attribute("stay") is object).Select(e => e.Attribute("stay"));
+            IEnumerable<XAttribute> etdWindowBefore = schedElems.Where(e => e.Attribute("etdWindowBefore") is object).Select(e => e.Attribute("etdWindowBefore"));
+            IEnumerable<XAttribute> etdWindowAfter = schedElems.Where(e => e.Attribute("etdWindowAfter") is object).Select(e => e.Attribute("etdWindowAfter"));
+            IEnumerable<XAttribute> etaWindowBefore = schedElems.Where(e => e.Attribute("etaWindowBefore") is object).Select(e => e.Attribute("etaWindowBefore"));
+            IEnumerable<XAttribute> etaWindowAfter = schedElems.Where(e => e.Attribute("etaWindowAfter") is object).Select(e => e.Attribute("etaWindowAfter"));
+
+            IEnumerable<XAttribute>[] combine = { stays, etdWindowBefore, etdWindowAfter, etaWindowBefore, etaWindowAfter };
+            var all = combine.SelectMany(x => x).ToArray();
+
+            foreach (var att in all)
+            {
+                string value = att.Value;
+
+                if (!value.StartsWith("P"))
+                {
+                    _errors.Add($"An attribute {att.Name.LocalName} had value {value} which is not an xsd:duration");
+                    continue;
+                }
+
+                TimeSpan span = (TimeSpan)att;
+
+                if (span > TimeSpan.FromDays(3))
+                {
+                    _warnings.Add($"An attribute {att.Name.LocalName} attribute contains duration longer than 3 days");
+                }
+            }
+        }
+    } 
 }
 
