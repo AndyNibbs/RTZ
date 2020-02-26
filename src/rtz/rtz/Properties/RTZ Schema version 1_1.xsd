@@ -710,14 +710,14 @@
 				</xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
-		<xsd:attribute name="etdWindowBefore" type="xsd:duration">
+		<xsd:attribute name="etdWindowBefore" type="xsd:time">
 			<xsd:annotation>
 				<xsd:documentation>
           The maximum value of time interval prior to the ETD used to adjust the ETD to get the earliest probable date/time.
 				</xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
-		<xsd:attribute name="etdWindowAfter" type="xsd:duration">
+		<xsd:attribute name="etdWindowAfter" type="xsd:time">
 			<xsd:annotation>
 				<xsd:documentation>
           The maximum value of time interval after the ETD used to adjust the ETD to get the latest probable date/time.
@@ -731,21 +731,21 @@
 				</xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
-		<xsd:attribute name="etaWindowBefore" type="xsd:duration">
+		<xsd:attribute name="etaWindowBefore" type="xsd:time">
 			<xsd:annotation>
 				<xsd:documentation>
           The maximum value of time interval prior to the ETA used to adjust the ETA to get the earliest probable date/time.
 				</xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
-		<xsd:attribute name="etaWindowAfter" type="xsd:duration">
+		<xsd:attribute name="etaWindowAfter" type="xsd:time">
 			<xsd:annotation>
 				<xsd:documentation>
           The maximum value of time interval after the ETA used to adjust the ETA to get the latest probable date/time.
 				</xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
-		<xsd:attribute name="stay" type="xsd:duration">
+		<xsd:attribute name="stay" type="xsd:time">
 			<xsd:annotation>
 				<xsd:documentation>Stay time on WP.</xsd:documentation>
 			</xsd:annotation>
