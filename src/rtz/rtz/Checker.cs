@@ -13,9 +13,10 @@ namespace rtz
 {
     class Checker
     {
-        public Checker(string filename)
+        public Checker(string filename, bool onlyWarnAboutRouteName)
         {
             Filename = filename;
+            OnlyWarnAboutRouteName = onlyWarnAboutRouteName;
 
             ReadRTZFromFile();
 
@@ -76,7 +77,14 @@ namespace rtz
                 _errors.Add("Exceeds 400kb limit");
             }
 
-            _doc = XDocument.Load(Filename);
+            try
+            {
+                _doc = XDocument.Load(Filename);
+            }
+            catch (XmlException x)
+            {
+                _errors.Add(x.Message);
+            }
         }
 
         private XNamespace _namespace;
@@ -85,17 +93,19 @@ namespace rtz
         {
             string version = _doc.Root.Attribute("version").Value;
 
+            var stm = _doc.Root.Attributes().Select(a => a.Value).Where(v => v.Equals("http://stmvalidation.eu/STM/1/0/0", StringComparison.InvariantCulture)).Any();
+
             if (version.Equals("1.0", StringComparison.InvariantCultureIgnoreCase))
             {
                 Version = "1.0";
-                XsdCheck(@"http://www.cirm.org/RTZ/1/0", Properties.Resources.RTZ_Schema_version_1_0);
                 _namespace = XNamespace.Get("http://www.cirm.org/RTZ/1/0");
+                XsdCheck(@"http://www.cirm.org/RTZ/1/0", Properties.Resources.RTZ_Schema_version_1_0, stm);
             }
             else if (version.Equals("1.1", StringComparison.InvariantCultureIgnoreCase))
             {
                 Version = "1.1";
-                XsdCheck(@"http://www.cirm.org/RTZ/1/1", Properties.Resources.RTZ_Schema_version_1_1);
                 _namespace = XNamespace.Get("http://www.cirm.org/RTZ/1/1");
+                XsdCheck(@"http://www.cirm.org/RTZ/1/1", Properties.Resources.RTZ_Schema_version_1_1, stm);
             }
             else
             {
@@ -103,11 +113,16 @@ namespace rtz
             }
         }
 
-        private void XsdCheck(string targetNamespace, string xsdContents)
+        private void XsdCheck(string targetNamespace, string xsdContents, bool stm)
         {
             var schemas = new XmlSchemaSet();
             schemas.Add(targetNamespace, XmlReader.Create(new StringReader(xsdContents)));
-           
+
+            if (stm)
+            {
+                schemas.Add("http://stmvalidation.eu/STM/1/0/0", XmlReader.Create(new StringReader(Properties.Resources.stm_extensions_29032017)));
+            }
+      
             _doc.Validate(schemas, (o, e) =>
             {
                 if (e.Severity == XmlSeverityType.Error)
@@ -226,6 +241,7 @@ namespace rtz
         }
         
         public string Filename { get; private set; }
+        private bool OnlyWarnAboutRouteName { get; }
 
         private List<string> _errors = new List<string>();
         private List<string> _warnings = new List<string>();
@@ -238,9 +254,7 @@ namespace rtz
         {
             var report = new StringBuilder();
 
-            report.AppendLine($"RTZ check report for {Filename}");
-            report.AppendLine($"Checked around {DateTime.UtcNow.ToString("G")}");
-
+            report.AppendLine($"{Filename}");
 
             if (HasErrors)
             {
@@ -342,15 +356,18 @@ namespace rtz
             string fileName = Path.GetFileNameWithoutExtension(Filename);
             if (!string.Equals(routeName, fileName, StringComparison.InvariantCultureIgnoreCase))
             {
-                _errors.Add("routeName shall equal the filename");
+                if (OnlyWarnAboutRouteName)
+                    _warnings.Add("warning routeName should equal the filename");
+                else
+                    _errors.Add("routeName should equal the filename");
             }
 
             WarnAboutLength(routeInfoElement, "routeName");
             WarnAboutLength(routeInfoElement, "routeAuthor");
             WarnAboutLength(routeInfoElement, "routeStatus");
             WarnAboutLength(routeInfoElement, "vesselName", 32);
-            WarnAboutLength(routeInfoElement, "vesselVoyage", 16);
-   
+            WarnAboutLength(routeInfoElement, "vesselVoyage", 128); // STM files can contain things like vesselVoyage="urn:mrn:stm:voyage:id:test:104"
+
             DateTimeOffset? validityPeriodStart = routeInfoElement.OptionalAttributeTime("validityPeriodStart");
             DateTimeOffset? validityPeriodStop  = routeInfoElement.OptionalAttributeTime("validityPeriodStop");
             if (validityPeriodStart.HasValue && validityPeriodStop.HasValue && validityPeriodStart.Value >= validityPeriodStop.Value)
@@ -437,7 +454,7 @@ namespace rtz
                 return;
             if (s.Length > reasonableLength)
             {
-                _warnings.Add($"Route name is >{reasonableLength} chars which is unreasonably long");
+                _warnings.Add($"{attributeName} is >{reasonableLength} chars which is unreasonably long");
             }
         }
 
@@ -576,8 +593,9 @@ namespace rtz
 
         private void CheckFirstScheduleElement(XElement scheduleElement)
         {
+            // Check first schedule element with a small set of attributes allowed because many attributes refer to the "leg" which is "previous"
             // All of the other attributres refer to the "leg" which is N - 1 to N
-            AcceptableAttributesCheck(scheduleElement, "waypointId", "etd", "eta", "windSpeed", "windDirection", "currentSpeed", "currentDirection", "note");
+            AcceptableAttributesCheck(scheduleElement, "waypointId", "etd", "eta", "windSpeed", "windDirection", "currentSpeed", "currentDirection", "Note", "etdWindowBefore", "etdWindowAfter");
         }
 
         // This is general around ensuring that default waypoint does not have information on it that
