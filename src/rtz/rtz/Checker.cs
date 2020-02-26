@@ -77,7 +77,14 @@ namespace rtz
                 _errors.Add("Exceeds 400kb limit");
             }
 
-            _doc = XDocument.Load(Filename);
+            try
+            {
+                _doc = XDocument.Load(Filename);
+            }
+            catch (XmlException x)
+            {
+                _errors.Add(x.Message);
+            }
         }
 
         private XNamespace _namespace;
@@ -247,9 +254,7 @@ namespace rtz
         {
             var report = new StringBuilder();
 
-            report.AppendLine($"RTZ check report for {Filename}");
-            report.AppendLine($"Checked around {DateTime.UtcNow.ToString("G")}");
-
+            report.AppendLine($"{Filename}");
 
             if (HasErrors)
             {
@@ -361,7 +366,7 @@ namespace rtz
             WarnAboutLength(routeInfoElement, "routeAuthor");
             WarnAboutLength(routeInfoElement, "routeStatus");
             WarnAboutLength(routeInfoElement, "vesselName", 32);
-            WarnAboutLength(routeInfoElement, "vesselVoyage", 64); // STM files can contain things like vesselVoyage="urn:mrn:stm:voyage:id:test:104"
+            WarnAboutLength(routeInfoElement, "vesselVoyage", 128); // STM files can contain things like vesselVoyage="urn:mrn:stm:voyage:id:test:104"
 
             DateTimeOffset? validityPeriodStart = routeInfoElement.OptionalAttributeTime("validityPeriodStart");
             DateTimeOffset? validityPeriodStop  = routeInfoElement.OptionalAttributeTime("validityPeriodStop");
@@ -449,7 +454,7 @@ namespace rtz
                 return;
             if (s.Length > reasonableLength)
             {
-                _warnings.Add($"Route name is >{reasonableLength} chars which is unreasonably long");
+                _warnings.Add($"{attributeName} is >{reasonableLength} chars which is unreasonably long");
             }
         }
 

@@ -170,6 +170,8 @@ namespace rtz
 
             int result = 0;
             var sb = new StringBuilder();
+            sb.AppendLine($"{DateTime.UtcNow.ToString("G")}");
+            sb.AppendLine();
 
             foreach (string filename in combined)
             {
