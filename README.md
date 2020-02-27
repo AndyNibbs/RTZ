@@ -54,7 +54,9 @@ e.g. RTZ -check c:\myRtzFiles c:\myCheckReport.txt
 
 ### TODO...
 
-- Build in RTZ 1.1 XSD to get from Simon Cooke
+- Relax checks somewhat on manual and calculated schedules to allow them to omit some waypoints in line with clarifications from developing standard. 
+
+"Manual node contains a sequence of ScheduleElement nodes that describe time preferences and calculation restrictions for  selected legs of the route. A waypoint should not have more than one associated ScheduleElement within a Manual node."
 
 ## General
 
