@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" >
-  <routeInfo routeName="BadGeometryType" />
+  <routeInfo routeName="NonsenseGeometryTypeError" />
   <waypoints>
     <defaultWaypoint radius="0.6">
       <leg safetyContour="0.0" />
@@ -22,7 +22,7 @@
     </waypoint>
     <waypoint id="5" name="Los Angeles Pilots">
       <position lat="33.6900166667" lon="-118.1806" />
-      <leg geometryType="GreatCircle" />
+      <leg geometryType="Nonsense" />
     </waypoint>
   </waypoints>
 </route>

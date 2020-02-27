@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" >
-  <routeInfo routeName="MissingWaypointId" />
+  <routeInfo routeName="NegativeRevisionError" />
   <waypoints>
     <defaultWaypoint radius="0.6">
       <leg safetyContour="0.0" />
     </defaultWaypoint>
-	<waypoint name="Hitachi LNG Terminal"  >
+	<waypoint id="1" revision="-1" name="Hitachi LNG Terminal"  >
       <position lat="36.4846" lon="140.6296666667" />
     </waypoint>
     <waypoint id="11" name="Pilots" revision="3" radius="0.3">
