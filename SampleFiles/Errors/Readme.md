@@ -4,7 +4,7 @@ Note: I think it unfair to specify that a system should trap *all* these errors.
 
 ### "Mainline" Errors
 
-These are errors in the aspects of RTZ that most systems will use (BadGeometryType especially - NO system should fail that)
+These are errors in the aspects of RTZ that most systems will use (NonsenseGeometryTypeError.rtz especially - NO system should fail that)
 
 - RouteNameDoesNotMatchFilenameError.rtz - routeName attribute does not match filename
 - DuplicateWaypointIdError.rtz - first two waypoints have same id (11 in both cases)
