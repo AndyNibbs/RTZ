@@ -368,8 +368,8 @@ namespace rtz
             WarnAboutLength(routeInfoElement, "vesselName", 32);
             WarnAboutLength(routeInfoElement, "vesselVoyage", 128); // STM files can contain things like vesselVoyage="urn:mrn:stm:voyage:id:test:104"
 
-            DateTimeOffset? validityPeriodStart = routeInfoElement.OptionalAttributeTime("validityPeriodStart");
-            DateTimeOffset? validityPeriodStop  = routeInfoElement.OptionalAttributeTime("validityPeriodStop");
+            DateTimeOffset? validityPeriodStart = OptionalAttributeTime(routeInfoElement,"validityPeriodStart");
+            DateTimeOffset? validityPeriodStop  = OptionalAttributeTime(routeInfoElement,"validityPeriodStop");
             if (validityPeriodStart.HasValue && validityPeriodStop.HasValue && validityPeriodStart.Value >= validityPeriodStop.Value)
             {
                 _errors.Add("validityPeriodStart >= validityPeriodStop");
@@ -403,6 +403,26 @@ namespace rtz
             if (vesselSpeedMax.HasValue && vesselServiceMax.HasValue && vesselSpeedMax.Value < vesselServiceMin)
             {
                 _errors.Add("vesselSpeedMax < vesselServiceMin");
+            }
+        }
+
+        private DateTimeOffset? OptionalAttributeTime(XElement element, string attributeName)
+        {
+            var att = element.Attribute(attributeName);
+
+            if (att is null)
+            {
+                return null;
+            }
+
+            try
+            {
+                return (DateTimeOffset)att;
+            }
+            catch (FormatException)
+            {
+                _errors.Add($"{attributeName} of {element.Name.LocalName} invalid datetime ({att.Value})");
+                return null;
             }
         }
 
@@ -549,8 +569,8 @@ namespace rtz
             int ind = 0;
             foreach(var se in scheduleElements)
             {
-                DateTimeOffset? etd = se.OptionalAttributeTime("etd");
-                DateTimeOffset? eta = se.OptionalAttributeTime("eta");
+                DateTimeOffset? etd = OptionalAttributeTime(se, "etd");
+                DateTimeOffset? eta = OptionalAttributeTime(se, "eta");
 
                 //TODO: if has both etd and eta AND stay we could check stay time is diff between etd and eta
                 
@@ -774,4 +794,3 @@ namespace rtz
         }
     } 
 }
-

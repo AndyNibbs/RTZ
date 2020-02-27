@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" >
+  <routeInfo routeName="MissingWaypointIdError" />
+  <waypoints>
+    <defaultWaypoint radius="0.6">
+      <leg safetyContour="0.0" />
+    </defaultWaypoint>
+	<waypoint name="Hitachi LNG Terminal"  >
+      <position lat="36.4846" lon="140.6296666667" />
+    </waypoint>
+    <waypoint id="11" name="Pilots" revision="3" radius="0.3">
+      <position lat="36.4667" lon="140.6500833333" />
+    </waypoint>
+    <waypoint id="6" name="WP 3">
+      <position lat="40.6783333333" lon="-137.585" />
+    </waypoint>
+    <waypoint id="4" revision="3" name="WP 4">
+      <position lat="33.63035" lon="-121.1150333333" />
+    </waypoint>
+    <waypoint id="0" name="WP 5">
+      <position lat="33.6507" lon="-119.0570666667" />
+    </waypoint>
+    <waypoint id="5" name="Los Angeles Pilots">
+      <position lat="33.6900166667" lon="-118.1806" />
+      <leg geometryType="Loxodrome" />
+    </waypoint>
+  </waypoints>
+</route>

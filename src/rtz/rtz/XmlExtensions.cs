@@ -18,19 +18,5 @@ namespace rtz
 
             return att.Value;
         }
-
-        public static DateTimeOffset? OptionalAttributeTime(this XElement element, string attributeName)
-        {
-            var att = element.Attribute(attributeName);
-
-            if (att is null)
-            {
-                return null;
-            }
-
-            return (DateTimeOffset)att;
-        }
-
-       
     }
 }
