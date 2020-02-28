@@ -12,7 +12,7 @@ pool:
 steps:
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'build'
+    command: 'publish'
     projects: '**/*.csproj'
 - task: PublishBuildArtifacts@1
   inputs:
