@@ -14,9 +14,8 @@ steps:
   inputs:
     command: 'build'
     projects: '**/*.csproj'
-- task: DownloadBuildArtifacts@0
+- task: PublishBuildArtifacts@1
   inputs:
-    buildType: 'current'
-    downloadType: 'single'
-    artifactName: 'drop'
-    downloadPath: '$(System.ArtifactsDirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
