@@ -13,7 +13,10 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
+    publishWebProjects: false
     projects: '**/*.csproj'
+    arguments: '-c Release -o $(Build.ArtifactStagingDirectory) -r win-x86 --no-self-contained'
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
