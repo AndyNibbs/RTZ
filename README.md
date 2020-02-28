@@ -58,6 +58,10 @@ e.g. RTZ -check c:\myRtzFiles c:\myCheckReport.txt
 
 "Manual node contains a sequence of ScheduleElement nodes that describe time preferences and calculation restrictions for  selected legs of the route. A waypoint should not have more than one associated ScheduleElement within a Manual node."
 
+Workflow:
+- Make a azure pipelines release pipeline to make a git hub release
+- Unit and integration tests to keep it doing the same thing
+
 ## General
 
 RTZ is a .net core 3.0 console app so it should run on Linux/MacOS as well as Windows. 
