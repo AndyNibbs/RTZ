@@ -51,12 +51,11 @@ e.g. RTZ -check c:\myRtzFiles c:\myCheckReport.txt
 - Leg checks (including warning against having a leg on the first WP)
 - geometryType check for permitted values
 - Checks to detect non-standard extensions (implementors should only extension using the standard extensions elements which can be put basically EVERYWHERE!)
+- Check that schedules contain only waypoint ids from the waypoints of the route
+- Warn if schedules contain waypoint ids out of the order of that in the waypoint section of the route
+- Warn if calculated schedules do not contain all the waypoints
 
 ### TODO...
-
-- Relax checks somewhat on manual and calculated schedules to allow them to omit some waypoints in line with clarifications from developing standard. 
-
-"Manual node contains a sequence of ScheduleElement nodes that describe time preferences and calculation restrictions for  selected legs of the route. A waypoint should not have more than one associated ScheduleElement within a Manual node."
 
 Workflow:
 - Unit and integration tests to keep it doing the same thing

@@ -122,7 +122,7 @@ namespace rtz
             {
                 schemas.Add("http://stmvalidation.eu/STM/1/0/0", XmlReader.Create(new StringReader(Properties.Resources.stm_extensions_29032017)));
             }
-      
+
             _doc.Validate(schemas, (o, e) =>
             {
                 if (e.Severity == XmlSeverityType.Error)
@@ -161,7 +161,7 @@ namespace rtz
         {
             var names = el.Attributes().Select(att => att.Name);
 
-            foreach(var name in names)
+            foreach (var name in names)
             {
                 if (!acceptableAttributeNames.Contains(name.LocalName))
                 {
@@ -226,7 +226,7 @@ namespace rtz
                 _errors.Add(errorMessage);
             }
         }
-        
+
         private void ElementAbsenceCheck(XElement el, string elementName, string errorMessage = "")
         {
             if (string.IsNullOrWhiteSpace(errorMessage))
@@ -239,7 +239,7 @@ namespace rtz
                 _errors.Add(errorMessage);
             }
         }
-        
+
         public string Filename { get; private set; }
         private bool OnlyWarnAboutRouteName { get; }
 
@@ -247,8 +247,8 @@ namespace rtz
         private List<string> _warnings = new List<string>();
         private XDocument _doc;
 
-        public ReadOnlyCollection<string> Warnings { get; private set; } 
-        public ReadOnlyCollection<string> Errors { get; private set; } 
+        public ReadOnlyCollection<string> Warnings { get; private set; }
+        public ReadOnlyCollection<string> Errors { get; private set; }
 
         public string Report()
         {
@@ -258,12 +258,12 @@ namespace rtz
 
             if (HasErrors)
             {
-                Errors.ForEach(e => report.AppendLine(e));
+                Errors.ForEach(e => report.AppendLine($"Error: {e}"));
             }
 
             if (HasWarnings)
             {
-                Warnings.ForEach(w => report.AppendLine(w));
+                Warnings.ForEach(w => report.AppendLine($"Warning: {w}"));
             }
 
             report.AppendLine(SuccessDescription());
@@ -288,7 +288,7 @@ namespace rtz
             {
                 return $"FAILURE with {Errors.Count} errors";
             }
-            
+
             if (HasWarnings)
             {
                 return $"SUCCESS with {Warnings.Count} warnings";
@@ -320,7 +320,7 @@ namespace rtz
                 _warnings.Add("First waypoint has a leg element but this is meaningless as it would define a route leg prior to the first waypoint");
             }
 
-            foreach(var wp in wps)
+            foreach (var wp in wps)
             {
                 AttributeExistenceCheck(wp, "id");
                 ElementExistenceCheck(wp, "position");
@@ -344,7 +344,7 @@ namespace rtz
             for (int n = 0; n < positions.Length - 1; ++n)
             {
                 if (MiscFunctions.Similar(positions[n], positions[n + 1], 0.00009))
-                    _warnings.Add($"WP index {n} position is very similar to position of WP index {n+1}. This is not forbidden but may affect schedule calculations");
+                    _warnings.Add($"WP index {n} position is very similar to position of WP index {n + 1}. This is not forbidden but may affect schedule calculations");
             }
         }
 
@@ -368,8 +368,8 @@ namespace rtz
             WarnAboutLength(routeInfoElement, "vesselName", 32);
             WarnAboutLength(routeInfoElement, "vesselVoyage", 128); // STM files can contain things like vesselVoyage="urn:mrn:stm:voyage:id:test:104"
 
-            DateTimeOffset? validityPeriodStart = OptionalAttributeTime(routeInfoElement,"validityPeriodStart");
-            DateTimeOffset? validityPeriodStop  = OptionalAttributeTime(routeInfoElement,"validityPeriodStop");
+            DateTimeOffset? validityPeriodStart = OptionalAttributeTime(routeInfoElement, "validityPeriodStart");
+            DateTimeOffset? validityPeriodStop = OptionalAttributeTime(routeInfoElement, "validityPeriodStop");
             if (validityPeriodStart.HasValue && validityPeriodStop.HasValue && validityPeriodStart.Value >= validityPeriodStop.Value)
             {
                 _errors.Add("validityPeriodStart >= validityPeriodStop");
@@ -431,12 +431,12 @@ namespace rtz
             if (string.IsNullOrWhiteSpace(mmsi))
                 return true;
 
-            if (mmsi.Length < 9) 
+            if (mmsi.Length < 9)
                 return false; // to short
 
             string first = mmsi.Substring(0, 1);
             int nFirst = int.Parse(first);
-            if (nFirst < 2 || nFirst > 7) 
+            if (nFirst < 2 || nFirst > 7)
                 return false; // not a ship
 
             return true;
@@ -464,7 +464,7 @@ namespace rtz
                 numeric = imo;
             }
 
-            return int.TryParse(numeric, out int dummy);            
+            return int.TryParse(numeric, out int dummy);
         }
 
         private void WarnAboutLength(XElement element, string attributeName, int reasonableLength = 128)
@@ -495,7 +495,7 @@ namespace rtz
             {
                 CheckSchedules(schedule, waypointIds.ToArray());
             }
-            
+
             // All schedules should contain the same WP ids in the same order as in
             // the waypoints section 
         }
@@ -507,43 +507,68 @@ namespace rtz
 
             if (manual is object)
             {
-                GeneralScheduleCheck(manual, waypointIds);
+                GeneralScheduleCheck(manual, waypointIds, warningIfIncomplete: false);
             }
 
-            if (calculated is object) 
+            if (calculated is object)
             {
-                GeneralScheduleCheck(calculated, waypointIds);
+                GeneralScheduleCheck(calculated, waypointIds, warningIfIncomplete: true);
             }
         }
 
-        private void GeneralScheduleCheck(XElement sch, int[] waypointIds)
+        private void GeneralScheduleCheck(XElement sch, int[] waypoints_ids_from_route, bool warningIfIncomplete)
         {
+            string scheduleType = sch.Name.LocalName;
+
             var scheduleElements = sch.Elements(_namespace + "scheduleElement");
 
             if (!scheduleElements.Any())
             {
-                _errors.Add($"Contains a {sch.Name.LocalName} schedule with no elements");
+                _errors.Add($"Contains a {scheduleType} schedule with no elements");
                 return;
             }
 
             CheckFirstScheduleElement(scheduleElements.First());
 
-            foreach(var se in scheduleElements)
+            foreach (var se in scheduleElements)
             {
-                CheckScheduleElement(se);    
-            }
-            
-            var ids = scheduleElements.Where(el => el.Attribute("waypointId") is object).Select(el => (int)el.Attribute("waypointId"));
-
-            if (ids.Count() != scheduleElements.Count())
-            {
-                _errors.Add($"Schedule found that contains scheduleElements(s) without waypointId attribute");
+                CheckScheduleElement(se);
             }
 
-            if (!ids.SequenceEqual(waypointIds))
+            var ids_from_schedule = scheduleElements.Where(el => el.Attribute("waypointId") is object).Select(el => (int)el.Attribute("waypointId"));
+
+            if (ids_from_schedule.Count() != scheduleElements.Count())
             {
-                _errors.Add($"Contains an element {sch.Name.LocalName} that does not contain all waypoint ids or order is wrong");
-                return;
+                _errors.Add($"A {scheduleType} schedule found that contains scheduleElements(s) without waypointId attribute");
+            }
+
+            bool everythingFromRouteIsInSchedule = true; // the next warning check is confusing unless this is true!
+            foreach (var id_from_schedule in ids_from_schedule)
+            {
+                if (!waypoints_ids_from_route.Contains(id_from_schedule))
+                {
+                    _errors.Add($"A {scheduleType} schedule element contains id {id_from_schedule} which does not correspond to any of the waypoints");
+                    everythingFromRouteIsInSchedule = false;
+                }
+            }
+
+            var route_waypoint_subset = waypoints_ids_from_route.Where(id => ids_from_schedule.Contains(id));
+
+            if (everythingFromRouteIsInSchedule && !route_waypoint_subset.SequenceEqual(ids_from_schedule))
+            {
+                _warnings.Add($"The waypoint ids in a {scheduleType} schedule are not in the same order as in the waypoints element");
+            }
+
+            if (warningIfIncomplete)
+            {
+                var a = ids_from_schedule.OrderBy(id => id);
+                var b = waypoints_ids_from_route.OrderBy(id => id);
+                if (!a.SequenceEqual(b))
+                {
+                    var missing = b.Except(a);
+                    string missingText = string.Join(", ", missing);
+                    _warnings.Add($"A {scheduleType} schedule does not contain ALL waypoints ids (is missing {missingText})");
+                }
             }
 
             ScheduleGoesForwardsInTime(scheduleElements);
@@ -567,13 +592,13 @@ namespace rtz
             var times = new List<(int index, string type, DateTimeOffset time)>();
 
             int ind = 0;
-            foreach(var se in scheduleElements)
+            foreach (var se in scheduleElements)
             {
                 DateTimeOffset? etd = OptionalAttributeTime(se, "etd");
                 DateTimeOffset? eta = OptionalAttributeTime(se, "eta");
 
                 //TODO: if has both etd and eta AND stay we could check stay time is diff between etd and eta
-                
+
                 if (eta.HasValue)
                 {
                     times.Add((ind, "eta", eta.Value));
@@ -589,7 +614,7 @@ namespace rtz
 
             // Check the it goes forward in time...
 
-            for(int n = 0; n < times.Count - 1; ++n)
+            for (int n = 0; n < times.Count - 1; ++n)
             {
                 var ntime = times[n];
                 var next = times[n + 1];
@@ -620,7 +645,7 @@ namespace rtz
 
         // This is general around ensuring that default waypoint does not have information on it that
         // only makes sense for an actual waypoint
-        private void DefaultWaypointChecks() 
+        private void DefaultWaypointChecks()
         {
             var defaultWaypoint = _doc.Root.Element(_namespace + "waypoints").Element(_namespace + "defaultWaypoint");
 
@@ -692,13 +717,13 @@ namespace rtz
             //  			extensions
             //  		extensions
             //  	extensions
-            
+
             var route = _doc.Root;
             AcceptableElementsCheck(route, "routeInfo", "waypoints", "schedules", "extensions");
 
             var routeInfo = route.Element(_namespace + "routeInfo");
             AcceptableElementsCheck(routeInfo, "extensions");
-            
+
             var waypoints = route.Element(_namespace + "waypoints");
             AcceptableElementsCheck(waypoints, "defaultWaypoint", "waypoint", "extensions");
 
@@ -714,7 +739,7 @@ namespace rtz
 
             // Extensions should only contain <extension>s
             var extensions = route.Descendants(_namespace + "extensions");
-            foreach(var el in extensions)
+            foreach (var el in extensions)
                 AcceptableElementsCheck(el, "extension");
 
             if (schedules is object)
@@ -792,5 +817,5 @@ namespace rtz
                 }
             }
         }
-    } 
+    }
 }
