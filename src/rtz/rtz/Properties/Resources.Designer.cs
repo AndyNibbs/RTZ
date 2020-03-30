@@ -122,6 +122,32 @@ namespace rtz.Properties {
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;!--
         ///  
+        ///  Route Exchange Format (RTZ)
+        ///
+        ///  XML schema
+        ///
+        ///  Revision 1.2
+        ///
+        ///  Source: IEC 61174
+        ///--&gt;
+        ///&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.cirm.org/RTZ/1/2&quot; targetNamespace=&quot;http://www.cirm.org/RTZ/1/2&quot; elementFormDefault=&quot;qualified&quot; attributeFormDefault=&quot;unqualified&quot;&gt;
+        ///	&lt;xsd:annotation&gt;
+        ///		&lt;xsd:documentation&gt;
+        ///      RTZ schema version 1.2. For more information on RTZ and this schema,
+        ///      visit http://www.cirm.org/RTZ.
+        ///
+        ///     [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string RTZ_Schema_version_1_2 {
+            get {
+                return ResourceManager.GetString("RTZ_Schema_version_1_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;!--
+        ///  
         ///  STM Extension RouteInfo for Route Exchange Format (RTZ)
         ///
         ///  XML schema
@@ -140,6 +166,31 @@ namespace rtz.Properties {
         internal static string stm_extensions_29032017 {
             get {
                 return ResourceManager.GetString("stm_extensions_29032017", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;!--
+        ///  
+        ///  STM Extension RouteInfo for Route Exchange Format (RTZ)
+        ///
+        ///  XML schema
+        ///
+        ///  Revision 1.0.0
+        ///
+        ///  Source: STM Developer Forum
+        ///--&gt;
+        ///&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;
+        ///	xmlns:stm=&quot;http://stmvalidation.eu/STM/1/2/0&quot;
+        ///	targetNamespace=&quot;http://stmvalidation.eu/STM/1/2/0&quot;
+        ///	xmlns:rtz=&quot;http://www.cirm.org/RTZ/1/2&quot; elementFormDefault=&quot;qualified&quot;&gt;
+        ///	&lt;xsd:import namespace=&quot;http://www.cirm.org/RTZ/1/2&quot; schemaLocation=&quot;RTZ.xsd&quot;/&gt;
+        ///	&lt;!--          [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string stm_extensions_29032017_amendedByAndy {
+            get {
+                return ResourceManager.GetString("stm_extensions_29032017_amendedByAndy", resourceCulture);
             }
         }
     }

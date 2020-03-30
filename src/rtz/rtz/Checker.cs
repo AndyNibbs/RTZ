@@ -93,7 +93,16 @@ namespace rtz
         {
             string version = _doc.Root.Attribute("version").Value;
 
-            var stm = _doc.Root.Attributes().Select(a => a.Value).Where(v => v.Equals("http://stmvalidation.eu/STM/1/0/0", StringComparison.InvariantCulture)).Any();
+            var stm = StmSchema.None;
+
+            if (_doc.Root.Attributes().Select(a => a.Value).Where(v => v.Equals("http://stmvalidation.eu/STM/1/0/0", StringComparison.InvariantCulture)).Any())
+            {
+                stm = StmSchema.StandardSTM;
+            }
+            else if (_doc.Root.Attributes().Select(a => a.Value).Where(v => v.Equals("http://stmvalidation.eu/STM/1/2/0", StringComparison.InvariantCulture)).Any())
+            {
+                stm = StmSchema.NonStandardAlteredByAndyNibbs;
+            }
 
             if (version.Equals("1.0", StringComparison.InvariantCultureIgnoreCase))
             {
@@ -107,20 +116,38 @@ namespace rtz
                 _namespace = XNamespace.Get("http://www.cirm.org/RTZ/1/1");
                 XsdCheck(@"http://www.cirm.org/RTZ/1/1", Properties.Resources.RTZ_Schema_version_1_1, stm);
             }
+            else if (version.Equals("1.2", StringComparison.InvariantCultureIgnoreCase))
+            {
+                Version = "1.2";
+                _namespace = XNamespace.Get("http://www.cirm.org/RTZ/1/2");
+                XsdCheck(@"http://www.cirm.org/RTZ/1/2", Properties.Resources.RTZ_Schema_version_1_2, stm);
+            }
             else
             {
                 _errors.Add($"Could not check with XSD for version {version}");
             }
         }
 
-        private void XsdCheck(string targetNamespace, string xsdContents, bool stm)
+        enum StmSchema
+        {
+            None,
+            StandardSTM,
+            NonStandardAlteredByAndyNibbs,
+        }
+        
+        private void XsdCheck(string targetNamespace, string xsdContents, StmSchema stm)
         {
             var schemas = new XmlSchemaSet();
             schemas.Add(targetNamespace, XmlReader.Create(new StringReader(xsdContents)));
 
-            if (stm)
+            if (stm == StmSchema.StandardSTM)
             {
                 schemas.Add("http://stmvalidation.eu/STM/1/0/0", XmlReader.Create(new StringReader(Properties.Resources.stm_extensions_29032017)));
+            }
+
+            if (stm == StmSchema.NonStandardAlteredByAndyNibbs)
+            {
+                schemas.Add("http://stmvalidation.eu/STM/1/2/0", XmlReader.Create(new StringReader(Properties.Resources.stm_extensions_29032017_amendedByAndy)));
             }
 
             _doc.Validate(schemas, (o, e) =>
@@ -139,7 +166,7 @@ namespace rtz
 
             ElementNameCheck(root, "route");
             AttributeExistenceCheck(root, "version");
-            AttributeContentsCheck(root, "version", "1.0", "1.1");
+            AttributeContentsCheck(root, "version", "1.0", "1.1", "1.2");
         }
 
         private void AttributeContentsCheck(XElement el, string attName, params string[] acceptable)
