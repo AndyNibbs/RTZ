@@ -147,16 +147,23 @@ namespace rtz
 
             if (stm == StmSchema.NonStandardAlteredByAndyNibbs)
             {
-                schemas.Add("http://stmvalidation.eu/STM/1/2/0", XmlReader.Create(new StringReader(Properties.Resources.stm_extensions_29032017_amendedByAndy)));
+                schemas.Add("http://stmvalidation.eu/STM/1/2/0", XmlReader.Create(new StringReader(Properties.Resources.stm_extensions_02042020_unofficial)));
             }
 
-            _doc.Validate(schemas, (o, e) =>
+            try
             {
-                if (e.Severity == XmlSeverityType.Error)
-                    _errors.Add(e.Message);
-                else
-                    _warnings.Add(e.Message);
-            });
+                _doc.Validate(schemas, (o, e) =>
+                {
+                    if (e.Severity == XmlSeverityType.Error)
+                        _errors.Add(e.Message);
+                    else
+                        _warnings.Add(e.Message);
+                });
+            }
+            catch (System.Xml.Schema.XmlSchemaValidationException x)
+            {
+                _errors.Add(x.Message);
+            }
         }
 
 

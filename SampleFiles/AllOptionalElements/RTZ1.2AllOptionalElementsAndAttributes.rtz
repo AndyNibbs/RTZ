@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<route xmlns="http://www.cirm.org/RTZ/1/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2"  xmlns:stm="http://stmvalidation.eu/STM/1/2/0" >
+<route xmlns="http://www.cirm.org/RTZ/1/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2"  >
   <routeInfo
-  routeName="12LegExtensions"
+  routeName="RTZ1.2AllOptionalElementsAndAttributes"
   routeAuthor="Andy Nibbs"
   routeStatus="Test route. Not for navigation!"
   validityPeriodStart="2014-01-03T03:15:00Z"
@@ -22,11 +22,11 @@
   routeChangesHistory="Sample RTZ route files by Mikhail Andrianov\nAdapted, rearranged and targeted at tests for standard by Andy Nibbs">
     <extensions>
       <extension name="routeInfoEx" manufacturer="STM" version="1.0.0" routeStatusEnum="1" routeVersion="750E6022-278C-4CAB-BC5A-ABCDD7C9F23F" startSeaPassage="LOC:WP1" endSeaPassage="TRAFFIC_AREA:WP6" arrPort="CAMTR">
-        <stm:routeChanges>
-          <stm:historyItem author="AJN" reason="creation" dateTime="2019-04-30T18:21:27Z"/>
-          <stm:historyItem author="AJN" reason="correction" dateTime="2019-04-30T18:27:51Z"/>
-          <stm:historyItem author="AJN" reason="correction" dateTime="2019-04-30T18:27:51Z"/>
-        </stm:routeChanges>
+        <routeChanges>
+          <historyItem author="AJN" reason="creation" dateTime="2019-04-30T18:21:27Z"/>
+          <historyItem author="AJN" reason="correction" dateTime="2019-04-30T18:27:51Z"/>
+          <historyItem author="AJN" reason="correction" dateTime="2019-04-30T18:27:51Z"/>
+        </routeChanges>
       </extension>
     </extensions>
   </routeInfo>
@@ -91,7 +91,13 @@
     </waypoint>
     <waypoint id="5" name="Los Angeles Pilots">
       <position lat="33.6900166667" lon="-118.1806" />
-      <leg geometryType="Loxodrome" />
+      <leg geometryType="Loxodrome">
+		 <extensions>
+			<extension name="legExtension" manufacturer="CIRM" version="1.2.3">
+				<proprietary att="138758912jdjkahdh94h93h82h010jh22h8h28h8h" />
+			</extension>
+		  </extensions>
+	  </leg>
     </waypoint>
     <extensions>
       <extension name="WPCollectionExt" manufacturer="CIRMSamples" version="1.0.0" value="RelatedToTheCollectionOfWaypoints"/>

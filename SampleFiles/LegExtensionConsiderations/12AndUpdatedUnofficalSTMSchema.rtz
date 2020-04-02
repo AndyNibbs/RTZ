@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns:stm="http://stmvalidation.eu/STM/1/0/0" >
+<route xmlns="http://www.cirm.org/RTZ/1/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xmlns:stm="http://stmvalidation.eu/STM/1/2/0" >
   <routeInfo
-  routeName="11WithErrorLegExtension"
+  routeName="12AndUpdatedUnofficalSTMSchema"
   routeAuthor="Andy Nibbs"
   routeStatus="Test route. Not for navigation!"
   validityPeriodStart="2014-01-03T03:15:00Z"
@@ -58,7 +58,6 @@
     </defaultWaypoint>
 	<waypoint id="11" name="Hitachi LNG Terminal"  >
       <position lat="36.4846" lon="140.6296666667" />
-	  <leg legInfo="It IS permitted by standard to have leg element here" />
       <extensions> <extension name="WPExt" manufacturer="CIRMSamples" version="1.0.0" value="ProprietaryValueForThisWP"/> </extensions>
     </waypoint>
     <waypoint id="2" name="Pilots" revision="3" radius="0.3">

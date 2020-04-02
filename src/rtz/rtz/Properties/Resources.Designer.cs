@@ -157,15 +157,15 @@ namespace rtz.Properties {
         ///  Source: STM Developer Forum
         ///--&gt;
         ///&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;
-        ///	xmlns:stm=&quot;http://stmvalidation.eu/STM/1/0/0&quot;
-        ///	targetNamespace=&quot;http://stmvalidation.eu/STM/1/0/0&quot;
-        ///	xmlns:rtz=&quot;http://www.cirm.org/RTZ/1/1&quot; elementFormDefault=&quot;qualified&quot;&gt;
-        ///	&lt;xsd:import namespace=&quot;http://www.cirm.org/RTZ/1/1&quot; schemaLocation=&quot;rtz.xsd&quot;/&gt;
+        ///	xmlns:stm=&quot;http://stmvalidation.eu/STM/1/2/0&quot;
+        ///	targetNamespace=&quot;http://stmvalidation.eu/STM/1/2/0&quot;
+        ///	xmlns:rtz=&quot;http://www.cirm.org/RTZ/1/2&quot; elementFormDefault=&quot;qualified&quot;&gt;
+        ///	&lt;xsd:import namespace=&quot;http://www.cirm.org/RTZ/1/2&quot; schemaLocation=&quot;RTZ.xsd&quot;/&gt;
         ///	&lt;!--          [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string stm_extensions_29032017 {
+        internal static string stm_extensions_02042020_unofficial {
             get {
-                return ResourceManager.GetString("stm_extensions_29032017", resourceCulture);
+                return ResourceManager.GetString("stm_extensions_02042020_unofficial", resourceCulture);
             }
         }
         
@@ -182,15 +182,15 @@ namespace rtz.Properties {
         ///  Source: STM Developer Forum
         ///--&gt;
         ///&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;
-        ///	xmlns:stm=&quot;http://stmvalidation.eu/STM/1/2/0&quot;
-        ///	targetNamespace=&quot;http://stmvalidation.eu/STM/1/2/0&quot;
-        ///	xmlns:rtz=&quot;http://www.cirm.org/RTZ/1/2&quot; elementFormDefault=&quot;qualified&quot;&gt;
-        ///	&lt;xsd:import namespace=&quot;http://www.cirm.org/RTZ/1/2&quot; schemaLocation=&quot;RTZ.xsd&quot;/&gt;
+        ///	xmlns:stm=&quot;http://stmvalidation.eu/STM/1/0/0&quot;
+        ///	targetNamespace=&quot;http://stmvalidation.eu/STM/1/0/0&quot;
+        ///	xmlns:rtz=&quot;http://www.cirm.org/RTZ/1/1&quot; elementFormDefault=&quot;qualified&quot;&gt;
+        ///	&lt;xsd:import namespace=&quot;http://www.cirm.org/RTZ/1/1&quot; schemaLocation=&quot;rtz.xsd&quot;/&gt;
         ///	&lt;!--          [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string stm_extensions_29032017_amendedByAndy {
+        internal static string stm_extensions_29032017 {
             get {
-                return ResourceManager.GetString("stm_extensions_29032017_amendedByAndy", resourceCulture);
+                return ResourceManager.GetString("stm_extensions_29032017", resourceCulture);
             }
         }
     }

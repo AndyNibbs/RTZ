@@ -130,7 +130,7 @@
   <data name="stm_extensions_29032017" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>stm_extensions_29032017.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="stm_extensions_29032017_amendedByAndy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>stm_extensions_29032017_amendedByAndy.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="stm_extensions_02042020_unofficial" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>stm_extensions_02042020_unofficial.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>
