@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns:stm="http://stmvalidation.eu/STM/1/0/0" >
+<route xmlns="http://www.cirm.org/RTZ/1/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2"  >
   <!-- validity starts AFTER it stops -->
   <!-- bad extension because extension is not within an extensions element -->
   <routeInfo
@@ -7,10 +7,10 @@
       validityPeriodStart="2014-01-06T10:15:00Z"
       validityPeriodStop="2014-01-03T03:15:00Z"
       vesselGM="2.12" >
-    <extension xsi:type="stm:RouteInfoExtension" name="routeInfoEx" manufacturer="STM" version="1.0.0" routeStatusEnum="1" routeVersion="750E6022-278C-4CAB-BC5A-ABCDD7C9F23F" startSeaPassage="LOC:WP1" endSeaPassage="TRAFFIC_AREA:WP6" arrPort="CAMTR">
-      <stm:routeChanges>
-        <stm:historyItem author="AJN" reason="creation" dateTime="2019-04-30T18:21:27Z"/>
-      </stm:routeChanges>
+    <extension xsi:type="RouteInfoExtension" name="routeInfoEx" manufacturer="STM" version="1.0.0" routeStatusEnum="1" routeVersion="750E6022-278C-4CAB-BC5A-ABCDD7C9F23F" startSeaPassage="LOC:WP1" endSeaPassage="TRAFFIC_AREA:WP6" arrPort="CAMTR">
+      <routeChanges>
+        <historyItem author="AJN" reason="creation" dateTime="2019-04-30T18:21:27Z"/>
+      </routeChanges>
     </extension>
   </routeInfo>
   <waypoints>
