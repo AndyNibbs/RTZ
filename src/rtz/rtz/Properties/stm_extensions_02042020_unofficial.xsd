@@ -5,9 +5,9 @@
 
   XML schema
 
-  Revision 1.0.0
+  Revision 1.2.0 (UNOFFICIAL)
 
-  Source: STM Developer Forum
+  Source: Andy Nibbs, CHERSOFT - just to demonstrate that if RTZ goes to 1.2 this schema should change to reflect that
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:stm="http://stmvalidation.eu/STM/1/2/0"
