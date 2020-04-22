@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns="http://www.cirm.org/RTZ/1/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2">
+    <routeInfo routeName="JPNGO_STLAW_BASE_RTZ">
+    </routeInfo>
+    <waypoints>
+        <waypoint id="1" name="JPNGO NE">
+            <position lat="34.25855000" lon="137.17881667"/>
+        </waypoint>
+        <waypoint id="2" name="SE1" radius="2.00">
+            <position lat="22.2433308" lon="-158.68618600"/>
+            <leg portsideXTD="0.50" starboardXTD="1.00"/>
+        </waypoint>
+        <waypoint id="3" name="SE2" radius="0.45">
+            <position lat="-45.10568333" lon="150.38398333"/>
+            <leg portsideXTD="0.15" starboardXTD="0.30"/>
+        </waypoint>
+        <waypoint id="4" name="SE3" radius="1.65">
+            <position lat="-36.93133333" lon="20.64783333"/>
+            <leg portsideXTD="3.00" starboardXTD="4.50" geometryType="Orthodrome"/>
+        </waypoint>
+        <waypoint id="5" name="SW" radius="0.85">
+            <position lat="-6.95285000" lon="-32.85430000"/>
+            <leg portsideXTD="0.40" starboardXTD="0.20" geometryType="Orthodrome"/>
+        </waypoint>
+        <waypoint id="6" name="ST LAW NW">
+            <position lat="44.55386667" lon="-56.39596667"/>
+            <leg portsideXTD="0.40" starboardXTD="0.40" geometryType="Orthodrome"/>
+        </waypoint>
+    </waypoints>
+    <schedules>
+    </schedules>
+    <extensions>
+    </extensions>
+</route>
+
