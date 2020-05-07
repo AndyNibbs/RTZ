@@ -22,7 +22,7 @@ namespace rtz
             Console.WriteLine("\tChecks file against standard");
             Console.WriteLine("\t-terse does not include detail just error and warning counts");
             Console.WriteLine("\t-routeNameWarn does not error if routeName does not match filename (this is common)");
-            Console.WriteLine("\t-errorsOnly doesn't mention ones that pass");
+            Console.WriteLine("\t-errorsOnly doesn't mention ones that pass (can shorten to just -errors)");
             return 1;
         }
 
@@ -99,6 +99,7 @@ namespace rtz
             args = RemoveSwitch(args, "-terse");
             args = RemoveSwitch(args, "-routeNameWarn");
             args = RemoveSwitch(args, "-errorsOnly");
+            args = RemoveSwitch(args, "-errors");
             return args;
         }
 
@@ -112,7 +113,7 @@ namespace rtz
             // Get terse flag then "delete" it from args to leave future parsing alone
             bool terse = args.Contains("-terse", StringComparer.InvariantCultureIgnoreCase);
             bool routeNameWarn = args.Contains("-routeNameWarn", StringComparer.InvariantCultureIgnoreCase);
-            bool errorsOnly = args.Contains("-errorsOnly", StringComparer.InvariantCultureIgnoreCase);
+            bool errorsOnly = args.Contains("-errorsOnly", StringComparer.InvariantCultureIgnoreCase) || args.Contains("-errors", StringComparer.InvariantCultureIgnoreCase);
             return new CheckFlags { Terse = terse, RouteNameOnlyWarning = routeNameWarn, ErrorsOnly=errorsOnly };
         }
 

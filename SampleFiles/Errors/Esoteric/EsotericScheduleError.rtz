@@ -27,20 +27,20 @@
   <schedules>
     <schedule id="42" name="Non-optimised schedule">
       <manual>
-        <scheduleElement waypointId="11" etd="2020-02-18T00:00:00z" />
+        <scheduleElement waypointId="11" etd="2020-02-18T00:00:00Z" />
         <scheduleElement waypointId="12" speed="20.0" />
         <scheduleElement waypointId="13" speed="20.0" />
         <scheduleElement waypointId="4"  speed="20.0" />
         <scheduleElement waypointId="0"  speed="20.0" />
-        <scheduleElement waypointId="5"  speed="20.0" eta="2020-02-27T21:38:42z" stay="PT99M" etd="2020-02-27T23:38:42z" Note="Wait 2hrs before going somewhere else" />
+        <scheduleElement waypointId="5"  speed="20.0" eta="2020-02-27T21:38:42Z" stay="PT99M" etd="2020-02-27T23:38:42Z" Note="Wait 2hrs before going somewhere else" />
       </manual>
       <calculated>
-        <scheduleElement waypointId="11" etd="2020-02-18T00:00:00z" />
-        <scheduleElement waypointId="12" eta="2020-02-18T00:04:22z" />
-        <scheduleElement waypointId="13" eta="2020-02-25T17:36:25z" />
-        <scheduleElement waypointId="4"  eta="2020-02-27T14:17:34z" />
-        <scheduleElement waypointId="0"  eta="2020-02-27T19:26:51z" />
-        <scheduleElement waypointId="5"  eta="2020-02-27T21:38:42z" />
+        <scheduleElement waypointId="11" etd="2020-02-18T00:00:00Z" />
+        <scheduleElement waypointId="12" eta="2020-02-18T00:04:22Z" />
+        <scheduleElement waypointId="13" eta="2020-02-25T17:36:25Z" />
+        <scheduleElement waypointId="4"  eta="2020-02-27T14:17:34Z" />
+        <scheduleElement waypointId="0"  eta="2020-02-27T19:26:51Z" />
+        <scheduleElement waypointId="5"  eta="2020-02-27T21:38:42Z" />
       </calculated>
       <extensions>
         <extension name="ScheduleExtension" manufacturer="CIRMSamples" version="6.6.6" waypointId="-1" Note="waypointsId -1 here is to catch rough parsing code that uses Descendents, yes you JR ;-)" />
@@ -49,12 +49,12 @@
 
     <schedule id="996" name="Optimised schedule">
       <calculated>
-        <scheduleElement waypointId="11" etd="2020-02-18T00:00:00z" windDirection="370" windSpeed="-10"  currentSpeed="-10" currentDirection="370" />
-        <scheduleElement waypointId="12" eta="2020-02-18T00:04:22z" />
-        <scheduleElement waypointId="13" eta="2020-02-25T17:36:25z" />
-        <scheduleElement waypointId="4"  eta="2020-02-27T14:17:34z" />
-        <scheduleElement waypointId="0"  eta="2020-02-27T19:26:51z" />
-        <scheduleElement waypointId="5"  eta="2020-02-27T21:38:42z" />
+        <scheduleElement waypointId="11" etd="2020-02-18T00:00:00Z" windDirection="370" windSpeed="-10"  currentSpeed="-10" currentDirection="370" />
+        <scheduleElement waypointId="12" eta="2020-02-18T00:04:22Z" />
+        <scheduleElement waypointId="13" eta="2020-02-25T17:36:25Z" />
+        <scheduleElement waypointId="4"  eta="2020-02-27T14:17:34Z" />
+        <scheduleElement waypointId="0"  eta="2020-02-27T19:26:51Z" />
+        <scheduleElement waypointId="5"  eta="2020-02-27T21:38:42Z" />
       </calculated>
     </schedule>
   </schedules>
