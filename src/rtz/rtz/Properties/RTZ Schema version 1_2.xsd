@@ -388,7 +388,7 @@
 				</xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
-		<xsd:attribute name="revision" type="xsd:nonNegativeInteger">
+		<xsd:attribute name="revision" type="xsd:nonNegativeInteger" use="required" >
 			<xsd:annotation>
 				<xsd:documentation>
           Waypoint revision. Increased on every change.
