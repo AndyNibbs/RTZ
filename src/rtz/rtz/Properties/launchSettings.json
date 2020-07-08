@@ -2,7 +2,7 @@
   "profiles": {
     "rtz": {
       "commandName": "Project",
-      "commandLineArgs": "-check C:\\GitHub\\RTZ\\SampleFiles\\"
+      "commandLineArgs": "-check ..\\..\\..\\..\\..\\..\\samplefiles\\ "
     }
   }
 }
