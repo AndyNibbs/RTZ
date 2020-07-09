@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <route xmlns="http://www.cirm.org/RTZ/1/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xmlns:stm="http://stmvalidation.eu/STM/1/2/0" >
   <routeInfo
-  routeName="12AndUpdatedUnofficalSTMSchema"
-  routeAuthor="Andy Nibbs"
-  routeStatus="Test route. Not for navigation!"
-  validityPeriodStart="2014-01-03T03:15:00Z"
+      routeName="12AndUpdatedUnofficalSTMSchema"
+      routeAuthor="Andy Nibbs"
+      routeStatus="Test route. Not for navigation!"
+      validityPeriodStart="2014-01-03T03:15:00Z"
       validityPeriodStop="2014-01-06T10:15:00Z"
-  vesselName="HMS Liverpool"
-  vesselMMSI="234610000"
-  vesselIMO="4907062"
-  vesselVoyage="99A"
-  vesselDisplacement="4820"
-  vesselCargo="6502"
-  vesselGM="2.12"
-  optimizationMethod="Simulated Annealing"
-  vesselMaxRoll="10"
-  vesselMaxWave="7.8"
-  vesselSpeedMax="30.0"
-  vesselServiceMin="12.0"
-  vesselServiceMax="28.0"
-  routeChangesHistory="Sample RTZ route files by Mikhail Andrianov\nAdapted, rearranged and targeted at tests for standard by Andy Nibbs">
+      vesselName="HMS Liverpool"
+      vesselMMSI="234610000"
+      vesselIMO="4907062"
+      vesselVoyage="99A"
+      vesselDisplacement="4820"
+      vesselCargo="6502"
+      vesselGM="2.12"
+      optimizationMethod="Simulated Annealing"
+      vesselMaxRoll="10"
+      vesselMaxWave="7.8"
+      vesselSpeedMax="30.0"
+      vesselServiceMin="12.0"
+      vesselServiceMax="28.0"
+      routeChangesHistory="Sample RTZ route files by Mikhail Andrianov\nAdapted, rearranged and targeted at tests for standard by Andy Nibbs">
     <extensions>
       <extension name="routeInfoEx" manufacturer="STM" version="1.0.0" routeStatusEnum="1" routeVersion="750E6022-278C-4CAB-BC5A-ABCDD7C9F23F" startSeaPassage="LOC:WP1" endSeaPassage="TRAFFIC_AREA:WP6" arrPort="CAMTR">
         <stm:routeChanges>
@@ -33,30 +33,30 @@
   <waypoints>
     <defaultWaypoint radius="0.6">
       <leg starboardXTD="0.2"
-		   portsideXTD="0.1"
-		   safetyContour="30.0"
-		   safetyDepth="35.0"
-		   geometryType="Orthodrome"
-		   speedMin="6"
-		   speedMax="18"
-		   draughtForward="6.27"
-		   draughtAft="6.4"
-		   staticUKC="8.0"
-		   dynamicUKC="8.8"
-		   masthead="19"
-		   legReport="Noon reporting required"
-		   legInfo="Default leg info"
-		   legNote1="Default ETA/ETD notes"
-		   legNote2="Default local remarks" >
-		   <extensions>
-				<extension name="legExtension" manufacturer="CIRM" version="1.2.3">
-					<proprietary att="138758912jdjkahdh94h93h82h010jh22h8h28h8h" />
-				</extension>
-		   </extensions>
-		</leg>
+           portsideXTD="0.1"
+           safetyContour="30.0"
+           safetyDepth="35.0"
+           geometryType="Orthodrome"
+           speedMin="6"
+           speedMax="18"
+           draughtForward="6.27"
+           draughtAft="6.4"
+           staticUKC="8.0"
+           dynamicUKC="8.8"
+           masthead="19"
+           legReport="Noon reporting required"
+           legInfo="Default leg info"
+           legNote1="Default ETA/ETD notes"
+           legNote2="Default local remarks" >
+       <extensions>
+        <extension name="legExtension" manufacturer="CIRM" version="1.2.3">
+          <proprietary att="138758912jdjkahdh94h93h82h010jh22h8h28h8h" />
+        </extension>
+       </extensions>
+    </leg>
       <extensions> <extension name="defaultWPExt" manufacturer="CIRMSamples" version="1.0.0" value="ProprietaryValue"/> </extensions>
     </defaultWaypoint>
-	<waypoint id="11" name="Hitachi LNG Terminal"  >
+  <waypoint id="11" revision="0" name="Hitachi LNG Terminal"  >
       <position lat="36.4846" lon="140.6296666667" />
       <extensions> <extension name="WPExt" manufacturer="CIRMSamples" version="1.0.0" value="ProprietaryValueForThisWP"/> </extensions>
     </waypoint>
@@ -64,32 +64,32 @@
       <position lat="36.4667" lon="140.6500833333" />
       <leg geometryType="Loxodrome" />
     </waypoint>
-    <waypoint id="43" name="WP 3">
+    <waypoint id="43" revision="0" name="WP 3">
       <position lat="40.6783333333" lon="-137.585" />
-			<leg starboardXTD="1"
-				 portsideXTD="1.1"
-				 safetyContour="100.0"
-				 safetyDepth="90.0"
-				 speedMin="15"
-				 speedMax="18"
-				 draughtForward="6.3"
-				 draughtAft="6.42"
-				 staticUKC="8.2"
-				 dynamicUKC="9.0"
-				 masthead="19.1"
-				 legReport="Hourly reporting"
-				 legInfo="This is a long ocean leg"
-				 legNote1="Specifics about ETA/ETD"
-				 legNote2="Specific local remarks" />
+      <leg starboardXTD="1"
+           portsideXTD="1.1"
+           safetyContour="100.0"
+           safetyDepth="90.0"
+           speedMin="15"
+           speedMax="18"
+           draughtForward="6.3"
+           draughtAft="6.42"
+           staticUKC="8.2"
+           dynamicUKC="9.0"
+           masthead="19.1"
+           legReport="Hourly reporting"
+           legInfo="This is a long ocean leg"
+           legNote1="Specifics about ETA/ETD"
+           legNote2="Specific local remarks" />
     </waypoint>
-    <waypoint id="4" name="WP 4">
+    <waypoint id="4" revision="0" name="WP 4">
       <position lat="33.63035" lon="-121.1150333333" />
     </waypoint>
-    <waypoint id="0" name="WP 5">
+    <waypoint id="0" revision="0" name="WP 5">
       <position lat="33.6507" lon="-119.0570666667" />
       <leg geometryType="Loxodrome" />
     </waypoint>
-    <waypoint id="5" name="Los Angeles Pilots">
+    <waypoint id="5" revision="0" name="Los Angeles Pilots">
       <position lat="33.6900166667" lon="-118.1806" />
       <leg geometryType="Loxodrome" />
     </waypoint>
@@ -100,7 +100,7 @@
   <schedules>
     <schedule id="42" name="Non-optimised schedule">
       <manual>
-	    <scheduleElement waypointId="11" etd="2020-02-18T00:00:00Z" />
+      <scheduleElement waypointId="11" etd="2020-02-18T00:00:00Z" />
         <scheduleElement waypointId="2"  speed="20.0" />
         <scheduleElement waypointId="43" speed="20.0" />
         <scheduleElement waypointId="4"  speed="20.0" />
@@ -108,29 +108,29 @@
         <scheduleElement waypointId="5"  speed="20.0" eta="2020-02-27T21:38:42Z" stay="PT2H" etd="2020-02-27T23:38:42Z" Note="Wait 2hrs before going somewhere else" />
       </manual>
       <calculated>
-		<scheduleElement waypointId="11" etd="2020-02-18T00:00:00Z" />
-		<scheduleElement waypointId="2"  eta="2020-02-18T00:04:22Z" />
-		<scheduleElement waypointId="43" eta="2020-02-25T17:36:25Z" />
-		<scheduleElement waypointId="4"  eta="2020-02-27T14:17:34Z" />      
-		<scheduleElement waypointId="0"  eta="2020-02-27T19:26:51Z" />      
-		<scheduleElement waypointId="5"  eta="2020-02-27T21:38:42Z" />        
-	  </calculated>    
-  	  <extensions>
-		<extension name="ScheduleExtension" manufacturer="CIRMSamples" version="6.6.6" waypointId="-1" note="waypointsId -1 here is to catch rough parsing code that uses Descendents, yes you JR ;-)" />
- 	  </extensions>
+    <scheduleElement waypointId="11" etd="2020-02-18T00:00:00Z" />
+    <scheduleElement waypointId="2"  eta="2020-02-18T00:04:22Z" />
+    <scheduleElement waypointId="43" eta="2020-02-25T17:36:25Z" />
+    <scheduleElement waypointId="4"  eta="2020-02-27T14:17:34Z" />      
+    <scheduleElement waypointId="0"  eta="2020-02-27T19:26:51Z" />      
+    <scheduleElement waypointId="5"  eta="2020-02-27T21:38:42Z" />        
+    </calculated>    
+      <extensions>
+    <extension name="ScheduleExtension" manufacturer="CIRMSamples" version="6.6.6" waypointId="-1" note="waypointsId -1 here is to catch rough parsing code that uses Descendents, yes you JR ;-)" />
+    </extensions>
     </schedule>
-	
-	<schedule id="996" name="Optimised schedule">
-		<calculated>
-			<scheduleElement waypointId="11" etd="2020-02-18T00:00:00Z" windDirection="277" windSpeed="5.9"  currentSpeed="0.7" currentDirection="58" />
-			<scheduleElement waypointId="2"  eta="2020-02-18T00:04:22Z" windDirection="165" windSpeed="27.5" currentSpeed="0.7" currentDirection="58" windLoss="0.1" waveLoss="0.1" totalLoss="0.2"  etdWindowBefore="PT1M30S" etdWindowAfter="PT5M" etaWindowBefore="PT1M10S" etaWindowAfter="PT1M30S" speedWindow="0.10" rpm="600" pitch="1"  fuel="2567" relFuelSave="10" absFuelSave="5" />
-			<scheduleElement waypointId="43" eta="2020-02-25T17:36:25Z" windDirection="165" windSpeed="27.5" currentSpeed="0.0" currentDirection="60" windLoss="0.9" waveLoss="1.9" totalLoss= "2.8" etdWindowBefore="PT9H30M11S" etdWindowAfter="PT9H" etaWindowBefore="PT555M" etaWindowAfter="PT555M59S"  speedWindow="3.15" rpm="642" pitch="13" fuel="1112567" relFuelSave="12549" absFuelSave="23134" />
-			<scheduleElement waypointId="4"  eta="2020-02-27T14:17:34Z" Note="out of forecast range" />      
-			<scheduleElement waypointId="0"  eta="2020-02-27T19:26:51Z" Note="out of forecast range" />      
-			<scheduleElement waypointId="5"  eta="2020-02-27T21:38:42Z" Note="out of forecast range" />        
-		</calculated>
-	</schedule>
-	
+  
+    <schedule id="996" name="Optimised schedule">
+      <calculated>
+        <scheduleElement waypointId="11" etd="2020-02-18T00:00:00Z" windDirection="277" windSpeed="5.9"  currentSpeed="0.7" currentDirection="58" />
+        <scheduleElement waypointId="2"  eta="2020-02-18T00:04:22Z" windDirection="165" windSpeed="27.5" currentSpeed="0.7" currentDirection="58" windLoss="0.1" waveLoss="0.1" totalLoss="0.2"  etdWindowBefore="PT1M30S" etdWindowAfter="PT5M" etaWindowBefore="PT1M10S" etaWindowAfter="PT1M30S" speedWindow="0.10" rpm="600" pitch="1"  fuel="2567" relFuelSave="10" absFuelSave="5" />
+        <scheduleElement waypointId="43" eta="2020-02-25T17:36:25Z" windDirection="165" windSpeed="27.5" currentSpeed="0.0" currentDirection="60" windLoss="0.9" waveLoss="1.9" totalLoss= "2.8" etdWindowBefore="PT9H30M11S" etdWindowAfter="PT9H" etaWindowBefore="PT555M" etaWindowAfter="PT555M59S"  speedWindow="3.15" rpm="642" pitch="13" fuel="1112567" relFuelSave="12549" absFuelSave="23134" />
+        <scheduleElement waypointId="4"  eta="2020-02-27T14:17:34Z" Note="out of forecast range" />      
+        <scheduleElement waypointId="0"  eta="2020-02-27T19:26:51Z" Note="out of forecast range" />      
+        <scheduleElement waypointId="5"  eta="2020-02-27T21:38:42Z" Note="out of forecast range" />        
+      </calculated>
+    </schedule>
+  
     <extensions>
       <extension name="SchedulesExtension" manufacturer="CIRMSamples" version="1.1.1"/>
     </extensions>
@@ -147,6 +147,3 @@
     </extension>
   </extensions>
 </route>
-
-
-

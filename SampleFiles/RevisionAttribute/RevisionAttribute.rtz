@@ -4,26 +4,26 @@
   <waypoints>
     <defaultWaypoint radius="0.6">
       <leg starboardXTD="0.2"
-		   portsideXTD="0.1"
-		   safetyContour="30.0"
-		   safetyDepth="35.0"
-		   geometryType="Orthodrome"
-		   speedMin="13"
-		   speedMax="15"
-		   draughtForward="6.27"
-		   draughtAft="6.4"
-		   staticUKC="8.0"
-		   dynamicUKC="8.8"
-		   masthead="19"
-		   legReport="defaultWaypoint.legReport"
-		   legInfo="defaultWaypoint.legInfo"
-		   legNote1="defaultWaypoint.legNote1"
-		   legNote2="defaultWaypoint.legNote2"
-		   />
+       portsideXTD="0.1"
+       safetyContour="30.0"
+       safetyDepth="35.0"
+       geometryType="Orthodrome"
+       speedMin="13"
+       speedMax="15"
+       draughtForward="6.27"
+       draughtAft="6.4"
+       staticUKC="8.0"
+       dynamicUKC="8.8"
+       masthead="19"
+       legReport="defaultWaypoint.legReport"
+       legInfo="defaultWaypoint.legInfo"
+       legNote1="defaultWaypoint.legNote1"
+       legNote2="defaultWaypoint.legNote2"
+       />
     </defaultWaypoint>
-	<waypoint id="1" revision="11" name="St John's, Newfoundland, Canada">
+  <waypoint id="1" revision="11" name="St John's, Newfoundland, Canada">
       <position lat="47.5666666667" lon="-52.6916666667" />
-	  <leg legInfo="It is permitted by standard to have leg element here but it has no effect" />
+    <leg legInfo="It is permitted by standard to have leg element here but it has no effect" />
     </waypoint>
     <waypoint id="2" revision="12" name="WP 2">
       <position lat="47.5662666667" lon="-52.6892666667" />
@@ -43,15 +43,15 @@
     </waypoint>
     <waypoint id="6" revision="16" name="WP 6">
       <position lat="51.2383333333" lon="-9.7716666667" />
-	  <!-- orthodrome geometryType from defaultWaypoint should show clear for transatlantic leg -->
-	  <leg starboardXTD="4.0" 
-		   portsideXTD="4.0" 
-		   safetyContour="100.0"
-           safetyDepth="90.0" 
-		   legReport="UTC Noon reporting during transatlantic leg"
-           legInfo="Specific leg info"
-           legNote1="Specifics about ETA/ETD"
-		   legNote2="Specific local remarks" />
+    <!-- orthodrome geometryType from defaultWaypoint should show clear for transatlantic leg -->
+    <leg starboardXTD="4.0" 
+         portsideXTD="4.0" 
+         safetyContour="100.0"
+         safetyDepth="90.0" 
+         legReport="UTC Noon reporting during transatlantic leg"
+         legInfo="Specific leg info"
+         legNote1="Specifics about ETA/ETD"
+         legNote2="Specific local remarks" />
     </waypoint>
     <waypoint id="7" revision="17" name="WP 7">
       <position lat="51.6185139101" lon="-5.2060759044" />

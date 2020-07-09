@@ -2,25 +2,25 @@
 <route xmlns="http://www.cirm.org/RTZ/1/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2"  >
   <routeInfo  routeName="EsotericScheduleError" />
  <waypoints>
-   <defaultWaypoint radius="0.6">
-     <leg safetyContour="0.0" />
-   </defaultWaypoint>
-	<waypoint id="11" name="Hitachi LNG Terminal"  >
+    <defaultWaypoint radius="0.6">
+      <leg safetyContour="0.0" />
+    </defaultWaypoint>
+    <waypoint id="11" revision="0" name="Hitachi LNG Terminal"  >
       <position lat="36.4846" lon="140.6296666667" />
     </waypoint>
-    <waypoint id="12" name="Pilots" revision="3" radius="0.3">
+    <waypoint id="12" revision="3" name="Pilots" radius="0.3">
       <position lat="36.4667" lon="140.6500833333" />
     </waypoint>
-    <waypoint id="13" name="WP 3">
+    <waypoint id="13" revision="0" name="WP 3">
       <position lat="40.6783333333" lon="-137.585" />
     </waypoint>
-    <waypoint id="4" name="WP 4">
+    <waypoint id="4" revision="0" name="WP 4">
       <position lat="33.63035" lon="-121.1150333333" />
     </waypoint>
-    <waypoint id="0" name="WP 5">
+    <waypoint id="0" revision="0" name="WP 5">
       <position lat="33.6507" lon="-119.0570666667" />
     </waypoint>
-    <waypoint id="5" name="Los Angeles Pilots">
+    <waypoint id="5" revision="0" name="Los Angeles Pilots">
       <position lat="33.6900166667" lon="-118.1806" />
     </waypoint>
   </waypoints>
@@ -46,7 +46,6 @@
         <extension name="ScheduleExtension" manufacturer="CIRMSamples" version="6.6.6" waypointId="-1" Note="waypointsId -1 here is to catch rough parsing code that uses Descendents, yes you JR ;-)" />
       </extensions>
     </schedule>
-
     <schedule id="996" name="Optimised schedule">
       <calculated>
         <scheduleElement waypointId="11" etd="2020-02-18T00:00:00Z" windDirection="370" windSpeed="-10"  currentSpeed="-10" currentDirection="370" />

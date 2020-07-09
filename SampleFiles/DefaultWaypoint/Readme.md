@@ -11,12 +11,3 @@ s)	Import a route that contains default waypoint and leg data. Add a new leg to 
 
 The route file is a simple file that has a full defaultWaypoint. The most striking thing from a test PoV is that it redefines the default for leg geometryType to orthodrome (aka Great Circle) and leg elements on each most waypoints set this back to loxodrome/rhumb line. The obvious long transatlantic leg should be great circle (see picture).
 
-
-QUESTIONS
-
-What can a defaultWaypoint include? - I think quite a lot of things as this sample suggests but need to make sure that fits with Simon Cooke's schema knowledge
-
-speedMin speedMax vs. planSpeedMin planSpeedMax
-
-xsd:time or xsd:duration
-

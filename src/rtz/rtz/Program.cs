@@ -18,7 +18,7 @@ namespace rtz
             Console.WriteLine("RTZ -unzip rtzp-filename [folder]");
             Console.WriteLine("\tExtracts contents of an RTZP to a given folder or defaults to filename of RTZP as folder name");
             Console.WriteLine();
-            Console.WriteLine("rtz -check <rtz or rtzp filename> [report destination] [-terse] [-routeNameWarn] [-errorsOnly]");
+            Console.WriteLine("rtz -check <rtz or rtzp filename> [report destination] [-terse] [-routeNameWarn] [-errors/-onlyErrors/-errorsOnly/]");
             Console.WriteLine("\tChecks file against standard");
             Console.WriteLine("\t-terse does not include detail just error and warning counts");
             Console.WriteLine("\t-routeNameWarn does not error if routeName does not match filename (this is common)");
@@ -99,6 +99,7 @@ namespace rtz
             args = RemoveSwitch(args, "-terse");
             args = RemoveSwitch(args, "-routeNameWarn");
             args = RemoveSwitch(args, "-errorsOnly");
+            args = RemoveSwitch(args, "-onlyErrors");
             args = RemoveSwitch(args, "-errors");
             return args;
         }
@@ -113,7 +114,7 @@ namespace rtz
             // Get terse flag then "delete" it from args to leave future parsing alone
             bool terse = args.Contains("-terse", StringComparer.InvariantCultureIgnoreCase);
             bool routeNameWarn = args.Contains("-routeNameWarn", StringComparer.InvariantCultureIgnoreCase);
-            bool errorsOnly = args.Contains("-errorsOnly", StringComparer.InvariantCultureIgnoreCase) || args.Contains("-errors", StringComparer.InvariantCultureIgnoreCase);
+            bool errorsOnly = args.Contains("-errorsOnly", StringComparer.InvariantCultureIgnoreCase) || args.Contains("-errors", StringComparer.InvariantCultureIgnoreCase) || args.Contains("-OnlyErrors", StringComparer.InvariantCultureIgnoreCase);
             return new CheckFlags { Terse = terse, RouteNameOnlyWarning = routeNameWarn, ErrorsOnly=errorsOnly };
         }
 

@@ -2,22 +2,22 @@
 <route xmlns="http://www.cirm.org/RTZ/1/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" >
   <routeInfo routeName="ScheduleError"   />
   <waypoints>
-	<waypoint id="11" name="Hitachi LNG Terminal"  >
+    <waypoint id="11" revision="3" name="Hitachi LNG Terminal"  >
       <position lat="36.4846" lon="140.6296666667" />
     </waypoint>
-    <waypoint id="12" name="Pilots" revision="3" radius="0.3">
+    <waypoint id="12" revision="3" name="Pilots" radius="0.3">
       <position lat="36.4667" lon="140.6500833333" />
     </waypoint>
-    <waypoint id="13" name="WP 3">
+    <waypoint id="13" revision="3" name="WP 3">
       <position lat="40.6783333333" lon="-137.585" />
     </waypoint>
-    <waypoint id="4" name="WP 4">
+    <waypoint id="4" revision="3" name="WP 4">
       <position lat="33.63035" lon="-121.1150333333" />
     </waypoint>
-    <waypoint id="0" name="WP 5">
+    <waypoint id="0" revision="3" name="WP 5">
       <position lat="33.6507" lon="-119.0570666667" />
     </waypoint>
-    <waypoint id="5" name="Los Angeles Pilots">
+    <waypoint id="5" revision="3" name="Los Angeles Pilots">
       <position lat="33.6900166667" lon="-118.1806" />
     </waypoint>
   </waypoints>
@@ -57,6 +57,3 @@
     </schedule>
   </schedules>
 </route>
-
-
-

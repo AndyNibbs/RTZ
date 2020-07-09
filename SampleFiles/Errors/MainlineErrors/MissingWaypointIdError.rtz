@@ -5,22 +5,22 @@
     <defaultWaypoint radius="0.6">
       <leg safetyContour="0.0" />
     </defaultWaypoint>
-	<waypoint name="Hitachi LNG Terminal"  >
+    <waypoint name="Hitachi LNG Terminal"  >
       <position lat="36.4846" lon="140.6296666667" />
     </waypoint>
     <waypoint id="11" name="Pilots" revision="3" radius="0.3">
       <position lat="36.4667" lon="140.6500833333" />
     </waypoint>
-    <waypoint id="6" name="WP 3">
+    <waypoint id="6" revision="2" name="WP 3">
       <position lat="40.6783333333" lon="-137.585" />
     </waypoint>
     <waypoint id="4" revision="3" name="WP 4">
       <position lat="33.63035" lon="-121.1150333333" />
     </waypoint>
-    <waypoint id="0" name="WP 5">
+    <waypoint id="0" revision="2" name="WP 5">
       <position lat="33.6507" lon="-119.0570666667" />
     </waypoint>
-    <waypoint id="5" name="Los Angeles Pilots">
+    <waypoint id="5" revision="2" name="Los Angeles Pilots">
       <position lat="33.6900166667" lon="-118.1806" />
       <leg geometryType="Loxodrome" />
     </waypoint>

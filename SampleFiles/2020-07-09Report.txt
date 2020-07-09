@@ -1,0 +1,124 @@
+09/07/2020 11:10:39
+
+C:\GitHub\RTZ\SampleFiles\AllOptionalElements\RTZ1.2AllOptionalElementsAndAttributes.rtz
+SUCCESS. No errors or warnings.
+
+C:\GitHub\RTZ\SampleFiles\DefaultWaypoint\DefaultWaypoint.rtz
+Warning: First waypoint has a leg element but this is meaningless as it would define a route leg prior to the first waypoint
+SUCCESS with 1 warnings
+
+C:\GitHub\RTZ\SampleFiles\LegExtensionConsiderations\10SimpleLegExtension.rtz
+Error: The element 'http://www.cirm.org/RTZ/1/0:leg' cannot contain child element 'http://www.cirm.org/RTZ/1/0:extensions' because the parent element's content model is empty.
+FAILURE with 1 errors
+
+C:\GitHub\RTZ\SampleFiles\LegExtensionConsiderations\11SimpleLegExtension.rtz
+Error: The element 'http://www.cirm.org/RTZ/1/1:leg' cannot contain child element 'http://www.cirm.org/RTZ/1/1:extensions' because the parent element's content model is empty.
+FAILURE with 1 errors
+
+C:\GitHub\RTZ\SampleFiles\LegExtensionConsiderations\12AndOldSTMSchema.rtz
+Error: Undefined complexType 'http://www.cirm.org/RTZ/1/1:Extension' is used as a base for complex type restriction.
+FAILURE with 1 errors
+
+C:\GitHub\RTZ\SampleFiles\LegExtensionConsiderations\12AndUpdatedUnofficalSTMSchema.rtz
+SUCCESS. No errors or warnings.
+
+C:\GitHub\RTZ\SampleFiles\LegExtensionConsiderations\12SimpleLegExtension.rtz
+SUCCESS. No errors or warnings.
+
+C:\GitHub\RTZ\SampleFiles\MandatoryElementsRtzSchema10\RTZ1.0MandatoryElementsAndAttributes.rtz
+SUCCESS. No errors or warnings.
+
+C:\GitHub\RTZ\SampleFiles\MikhailTestFilesConvertedTo12\JPNGO_STLAW_BASE_RTZ.rtz
+SUCCESS. No errors or warnings.
+
+C:\GitHub\RTZ\SampleFiles\MikhailTestFilesConvertedTo12\JPNGO_STLAW_BASIC_RTZ.rtz
+SUCCESS. No errors or warnings.
+
+C:\GitHub\RTZ\SampleFiles\MikhailTestFilesConvertedTo12\JPNGO_STLAW_MANUFACTURER_RTZ.rtz
+Warning: vesselMMSI (123456789) does not look like an MMSI 
+SUCCESS with 1 warnings
+
+C:\GitHub\RTZ\SampleFiles\RevisionAttribute\RevisionAttribute.rtz
+Warning: First waypoint has a leg element but this is meaningless as it would define a route leg prior to the first waypoint
+SUCCESS with 1 warnings
+
+C:\GitHub\RTZ\SampleFiles\RTZ11AllOptionalElements\RTZ1.1AllOptionalElementsAndAttributes.rtz
+Warning: First waypoint has a leg element but this is meaningless as it would define a route leg prior to the first waypoint
+SUCCESS with 1 warnings
+
+C:\GitHub\RTZ\SampleFiles\Warnings\ScheduleWarnings.rtz
+Error: Schedule out-of-order etd after eta waypoints index 0, 1
+Warning: First waypoint has a leg element but this is meaningless as it would define a route leg prior to the first waypoint
+Warning: The waypoint ids in a calculated schedule are not in the same order as in the waypoints element
+Warning: A calculated schedule does not contain ALL waypoints ids (is missing 0)
+FAILURE with 1 errors and 3 warnings
+
+C:\GitHub\RTZ\SampleFiles\Errors\Esoteric\EsotericRouteInfoError.rtz
+Error: The element 'routeInfo' in namespace 'http://www.cirm.org/RTZ/1/2' has invalid child element 'extension' in namespace 'http://www.cirm.org/RTZ/1/2'. List of possible elements expected: 'extensions' in namespace 'http://www.cirm.org/RTZ/1/2'.
+Error: validityPeriodStart >= validityPeriodStop
+Warning: Non-standard element (extension) found in routeInfo element
+FAILURE with 2 errors and 1 warnings
+
+C:\GitHub\RTZ\SampleFiles\Errors\Esoteric\EsotericScheduleError.rtz
+Error: The 'windDirection' attribute is invalid - The value '370' is invalid according to its datatype 'http://www.cirm.org/RTZ/1/2:CourseType' - The MaxExclusive constraint failed.
+Error: The 'windSpeed' attribute is invalid - The value '-10' is invalid according to its datatype 'http://www.cirm.org/RTZ/1/2:SpeedType' - The MinInclusive constraint failed.
+Error: The 'currentSpeed' attribute is invalid - The value '-10' is invalid according to its datatype 'http://www.cirm.org/RTZ/1/2:SpeedType' - The MinInclusive constraint failed.
+Error: The 'currentDirection' attribute is invalid - The value '370' is invalid according to its datatype 'http://www.cirm.org/RTZ/1/2:CourseType' - The MaxExclusive constraint failed.
+FAILURE with 4 errors
+
+C:\GitHub\RTZ\SampleFiles\Errors\MainlineErrors\DuplicateWaypointIdError.rtz
+Error: Waypoint id 11 appears more than one once in waypoints element
+FAILURE with 1 errors
+
+C:\GitHub\RTZ\SampleFiles\Errors\MainlineErrors\GeometryTypeError.rtz
+Error: The 'geometryType' attribute is invalid - The value 'GreatCircle' is invalid according to its datatype 'http://www.cirm.org/RTZ/1/2:GeometryType' - The Enumeration constraint failed.
+Error: {http://www.cirm.org/RTZ/1/2}leg attribute geometryType unexpected value (GreatCircle)
+FAILURE with 2 errors
+
+C:\GitHub\RTZ\SampleFiles\Errors\MainlineErrors\MissingWaypointIdError.rtz
+Error: The required attribute 'id' is missing.
+Error: The required attribute 'revision' is missing.
+Error: 1 waypoints of 6 waypoints do not have an id attribute
+Error: No id attribute on {http://www.cirm.org/RTZ/1/2}waypoint
+FAILURE with 4 errors
+
+C:\GitHub\RTZ\SampleFiles\Errors\MainlineErrors\NegativeRevisionError.rtz
+Error: The 'revision' attribute is invalid - The value '-1' is invalid according to its datatype 'http://www.w3.org/2001/XMLSchema:nonNegativeInteger' - Value '-1' was either too large or too small for NonNegativeInteger.
+FAILURE with 1 errors
+
+C:\GitHub\RTZ\SampleFiles\Errors\MainlineErrors\NonsenseGeometryTypeError.rtz
+Error: The 'geometryType' attribute is invalid - The value 'Nonsense' is invalid according to its datatype 'http://www.cirm.org/RTZ/1/2:GeometryType' - The Enumeration constraint failed.
+Error: {http://www.cirm.org/RTZ/1/2}leg attribute geometryType unexpected value (Nonsense)
+FAILURE with 2 errors
+
+C:\GitHub\RTZ\SampleFiles\Errors\MainlineErrors\RouteNameDoesNotMatchFilenameError.rtz
+Error: routeName should equal the filename
+FAILURE with 1 errors
+
+C:\GitHub\RTZ\SampleFiles\Errors\MainlineErrors\ScheduleError.rtz
+Error: The 'etd' attribute is invalid - The value '2020-02-30T00:00:00Z' is invalid according to its datatype 'http://www.w3.org/2001/XMLSchema:dateTime' - The string '2020-02-30T00:00:00Z' is not a valid DateTime value.
+Error: Schedule out-of-order eta after etd waypoints index 0, 5
+Error: A calculated schedule element contains id 1 which does not correspond to any of the waypoints
+Error: A calculated schedule element contains id 2 which does not correspond to any of the waypoints
+Error: A calculated schedule element contains id 3 which does not correspond to any of the waypoints
+Error: A calculated schedule element contains id 6 which does not correspond to any of the waypoints
+Error: A calculated schedule element contains id 43 which does not correspond to any of the waypoints
+Error: etd of scheduleElement invalid datetime (2020-02-30T00:00:00Z)
+Warning: A calculated schedule does not contain ALL waypoints ids (is missing 0, 11, 12, 13)
+Warning: A calculated schedule does not contain ALL waypoints ids (is missing 13)
+FAILURE with 8 errors and 2 warnings
+
+C:\GitHub\RTZ\SampleFiles\Rtzp\Basic\DefaultWaypoint.rtz
+Warning: First waypoint has a leg element but this is meaningless as it would define a route leg prior to the first waypoint
+SUCCESS with 1 warnings
+
+C:\GitHub\RTZ\SampleFiles\Rtzp\WithAttachments\source\rtzp_with_attachments.rtz
+SUCCESS. No errors or warnings.
+
+C:\GitHub\RTZ\SampleFiles\Rtzp\Basic\DefaultWaypoint.rtzp
+Warning: First waypoint has a leg element but this is meaningless as it would define a route leg prior to the first waypoint
+SUCCESS with 1 warnings
+
+C:\GitHub\RTZ\SampleFiles\Rtzp\WithAttachments\rtzp_with_attachments.rtzp
+SUCCESS. No errors or warnings.
+

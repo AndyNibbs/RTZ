@@ -20,9 +20,3 @@ d) Import a route conforming to the minimum mandatory elements of schema version
 NOTE: To flag up a potential pitfall for implementors Waypoint IDs are deliberately not in rising numeric order to avoid giving impression that id should equal the index (S.5.6 Comment "It does not have to be equal to index)
 
 NOTE: Waypoints exist in with positive and negative Lat and Lon (all four quadrants) and route crosses the "date line" (180 degree Lon).
-
-
-# TODO/QUESTIONS:
-
-**is Leg mandatory?!**
-(S.5.6 says that it is in the table. But std also gives default leg type as Loxodrome and permits a DefaultWaypoint so believ table in S.5.6 is misleading)
